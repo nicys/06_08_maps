@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "324143463520",
-    "project_id": "netologypushes",
-    "storage_bucket": "netologypushes.appspot.com"
+    "project_number": "79458350543",
+    "project_id": "maps-7db66",
+    "storage_bucket": "maps-7db66.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:324143463520:android:1b9cedd8e994cc5355d705",
+        "mobilesdk_app_id": "1:79458350543:android:2b7793fdedd59f6f790eba",
         "android_client_info": {
           "package_name": "ru.netology.nmedia"
         }
       },
       "oauth_client": [
         {
-          "client_id": "324143463520-q9la83c895door4l5ba0s65rm1mka5lt.apps.googleusercontent.com",
+          "client_id": "79458350543-hmvbqlb691idgofleonpnt042e0m4toq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAjXue-T7mq2EqtL9lYLvOZPFu6mvyEXyg"
+          "current_key": "AIzaSyD43phwE8m-QwKh9AC8RsIp3VL4xdZ3puc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "324143463520-q9la83c895door4l5ba0s65rm1mka5lt.apps.googleusercontent.com",
+              "client_id": "79458350543-hmvbqlb691idgofleonpnt042e0m4toq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
