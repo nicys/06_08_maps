@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NMedia</string>
+    <string name="ok">ok</string>
+    <string name="lack_of_permission">Notification about the lack of permission.</string>
+    <string name="need_for_permission">Notification of the need for permission.</string>
+    <string name="sorry_dialog">Unfortunately, you dont have access to the maps.</string>
+    <string name="access_dialog">Your permission is required to access the maps.</string>
+</resources>
