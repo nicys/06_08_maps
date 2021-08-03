@@ -7,4 +7,5 @@
     <string name="access_dialog">Your permission is required to access the maps.</string>
     <string name="remove_marker">the marker was deleted</string>
     <string name="add_marker">the marker was added</string>
+    <string name="do_marker">Specify what you want to do with the marker:</string>
 </resources>
