@@ -10,4 +10,7 @@
     <string name="change_marker">Change or Remove marker?</string>
     <string name="do_marker">Specify what you want to do with the marker:</string>
     <string name="remove">REMOVE</string>
+    <string name="cancel">CANCEL</string>
+    <string name="change">CHANGE</string>
+    <string name="change_mark">changer snippet of marker</string>
 </resources>

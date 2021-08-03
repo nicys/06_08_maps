@@ -11,4 +11,7 @@
     <string name="change_marker">Изменить или удалить маркер?</string>
     <string name="do_marker">Укажите, что вы хотите сделать с маркером:</string>
     <string name="remove">УДАЛИТЬ</string>
+    <string name="cancel">ОТМЕНА</string>
+    <string name="change">ИЗМЕНИТЬ</string>
+    <string name="change_mark">зменить описание маркера</string>
 </resources>
