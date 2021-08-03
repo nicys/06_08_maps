@@ -7,4 +7,5 @@
     <string name="sorry_dialog">К сожалению, у вас нет доступа к картам.</string>
     <string name="access_dialog">Для доступа к картам необходимо ваше разрешение.</string>
     <string name="remove_marker">маркер удален</string>
+    <string name="add_marker">маркер добавлен</string>
 </resources>

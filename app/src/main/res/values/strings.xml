@@ -6,4 +6,5 @@
     <string name="sorry_dialog">Unfortunately, you dont have access to the maps.</string>
     <string name="access_dialog">Your permission is required to access the maps.</string>
     <string name="remove_marker">the marker was deleted</string>
+    <string name="add_marker">the marker was added</string>
 </resources>
