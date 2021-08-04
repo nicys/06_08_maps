@@ -14,4 +14,5 @@
     <string name="cancel">ОТМЕНА</string>
     <string name="change">ИЗМЕНИТЬ</string>
     <string name="change_mark">зменить описание маркера</string>
+    <string name="enternamemarker">Введите имя маркера</string>
 </resources>

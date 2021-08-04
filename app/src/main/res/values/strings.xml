@@ -13,4 +13,5 @@
     <string name="cancel">CANCEL</string>
     <string name="change">CHANGE</string>
     <string name="change_mark">changer snippet of marker</string>
+    <string name="enternamemarker">Enter name of marker</string>
 </resources>
