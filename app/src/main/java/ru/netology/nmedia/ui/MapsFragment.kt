@@ -129,28 +129,31 @@ class MapsFragment : Fragment() {
                 ))
         }
     }
-}
 
-private val _markers: MutableMap<String, MarkerOptions> = ConcurrentHashMap<String, MarkerOptions>()
+    private val _markers: MutableMap<String, MarkerOptions> =
+        ConcurrentHashMap<String, MarkerOptions>()
 
-private fun add(name: String, latLong: LatLng) {
-    val marker = MarkerOptions().position(latLong).title(name)
-    _markers[name] = marker
-}
-
-private fun remove(name: String): Boolean {
-    _markers.remove(name)
-    googleMap.clear()
-    for (item in _markers.values) {
-        googleMap.addMarker(item)
+    private fun add(name: String, latLong: LatLng) {
+        val marker = MarkerOptions().position(latLong).title(name)
+        _markers[name] = marker
     }
-    return true
+
+    private fun remove(name: String): Boolean {
+        _markers.remove(name)
+        googleMap.clear()
+        for (item in _markers.values) {
+            googleMap.addMarker(item)
+        }
+        return true
+    }
+
+    var currentDate: Date = Date()
+    var dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+    var dateText: String = dateFormat.format(currentDate)
+
+    var timeFormat: DateFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+    var timeText: String = timeFormat.format(currentDate)
 }
 
-var currentDate: Date = Date()
-var dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-var dateText: String = dateFormat.format(currentDate)
 
-var timeFormat: DateFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-var timeText: String = timeFormat.format(currentDate)
-}
+
