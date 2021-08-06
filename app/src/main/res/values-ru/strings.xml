@@ -10,9 +10,9 @@
     <string name="add_marker">маркер добавлен</string>
     <string name="change_marker">Изменить или удалить маркер?</string>
     <string name="do_marker">Укажите, что вы хотите сделать с маркером:</string>
-    <string name="remove">УДАЛИТЬ</string>
-    <string name="cancel">ОТМЕНА</string>
-    <string name="change">ИЗМЕНИТЬ</string>
+    <string name="REMOVE">УДАЛИТЬ</string>
+    <string name="CANCEL">ОТМЕНА</string>
+    <string name="CHANGER">ИЗМЕНИТЬ</string>
     <string name="change_mark">зменить описание маркера</string>
     <string name="enternamemarker">Введите имя маркера</string>
 </resources>

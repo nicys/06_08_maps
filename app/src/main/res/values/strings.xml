@@ -9,9 +9,9 @@
     <string name="add_marker">the marker was added</string>
     <string name="change_marker">Change or Remove marker?</string>
     <string name="do_marker">Specify what you want to do with the marker:</string>
-    <string name="remove">REMOVE</string>
-    <string name="cancel">CANCEL</string>
-    <string name="change">CHANGE</string>
+    <string name="REMOVE">REMOVE</string>
+    <string name="CANCEL">CANCEL</string>
+    <string name="CHANGER">CHANGE</string>
     <string name="change_mark">changer snippet of marker</string>
     <string name="enternamemarker">Enter name of marker</string>
 </resources>
