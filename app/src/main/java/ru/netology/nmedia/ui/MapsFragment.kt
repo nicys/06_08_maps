@@ -18,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.collections.MarkerManager
 import com.google.maps.android.ktx.awaitAnimateCamera
 import com.google.maps.android.ktx.awaitMap
@@ -25,6 +26,10 @@ import com.google.maps.android.ktx.model.cameraPosition
 import com.google.maps.android.ktx.utils.collection.addMarker
 import ru.netology.nmedia.R
 import ru.netology.nmedia.ui.extensions.icon
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 
 class MapsFragment : Fragment() {
     private lateinit var googleMap: GoogleMap
@@ -124,4 +129,28 @@ class MapsFragment : Fragment() {
                 ))
         }
     }
+}
+
+private val _markers: MutableMap<String, MarkerOptions> = ConcurrentHashMap<String, MarkerOptions>()
+
+private fun add(name: String, latLong: LatLng) {
+    val marker = MarkerOptions().position(latLong).title(name)
+    _markers[name] = marker
+}
+
+private fun remove(name: String): Boolean {
+    _markers.remove(name)
+    googleMap.clear()
+    for (item in _markers.values) {
+        googleMap.addMarker(item)
+    }
+    return true
+}
+
+var currentDate: Date = Date()
+var dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+var dateText: String = dateFormat.format(currentDate)
+
+var timeFormat: DateFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+var timeText: String = timeFormat.format(currentDate)
 }
