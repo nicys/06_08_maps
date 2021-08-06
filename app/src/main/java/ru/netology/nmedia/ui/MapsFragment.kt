@@ -101,13 +101,23 @@ class MapsFragment : Fragment() {
                     val fusedLocationProviderClient = LocationServices
                         .getFusedLocationProviderClient(requireActivity())
 
-                    fusedLocationProviderClient.lastLocation.addOnSuccessListener {
-                        println(it)
-                    }
+                    fusedLocationProviderClient.lastLocation.addOnSuccessListener { println(it) }
                 }
                 // 2. Должны показать обоснование необходимости прав
                 shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
-                    // TODO: show rationale dialog
+                    val dialogBuilder = AlertDialog.Builder(requireActivity())
+                    dialogBuilder.setMessage(R.string.access_dialog)
+                        // if the dialog is cancelable
+                        .setCancelable(false)
+                        .setPositiveButton(
+                            R.string.ok,
+                            DialogInterface.OnClickListener { dialog, id ->
+                                dialog.dismiss()
+                            })
+                    val alert = dialogBuilder.create()
+                    alert.setTitle(R.string.need_for_permission)
+                    alert.show()
+//                      // TODO: show rationale dialog
                 }
                 // 3. Запрашиваем права
                 else -> {
