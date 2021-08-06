@@ -2,6 +2,7 @@ package ru.netology.nmedia.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -41,9 +43,20 @@ class MapsFragment : Fragment() {
                 googleMap.apply {
                     isMyLocationEnabled = true
                     uiSettings.isMyLocationButtonEnabled = true
+                    mapType = GoogleMap.MAP_TYPE_NORMAL
                 }
             } else {
-                // TODO: show sorry dialog
+                val dialogBuilder = AlertDialog.Builder(requireActivity())
+                dialogBuilder.setMessage(R.string.sorry_dialog)
+                    .setCancelable(false)
+                    .setPositiveButton(
+                        R.string.ok,
+                        DialogInterface.OnClickListener { dialog, id ->
+                            dialog.dismiss()
+                        })
+                val alert = dialogBuilder.create()
+                alert.setTitle(R.string.lack_of_permission)
+                alert.show()
             }
         }
 
