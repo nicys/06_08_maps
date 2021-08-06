@@ -80,6 +80,9 @@ class MapsFragment : Fragment() {
 
                 uiSettings.apply {
                     isZoomControlsEnabled = true
+                    isCompassEnabled = true
+                    isIndoorLevelPickerEnabled = true
+                    isMapToolbarEnabled = true
                     setAllGesturesEnabled(true)
                 }
             }
