@@ -134,6 +134,7 @@ class MapsFragment : Fragment() {
                             title("Ш-${point.latitude}")
                             snippet("no description")
                             add(title!!, point)
+                            addMarker()
                         }.apply {
                             showInfoWindow()
                             tag = dateText
@@ -148,12 +149,31 @@ class MapsFragment : Fragment() {
                     }
 
                     collection.setOnMarkerClickListener { marker ->
-                        // TODO: work with marker
-                        Toast.makeText(
-                            requireContext(),
-                            (marker.tag as String),
-                            Toast.LENGTH_LONG
-                        ).show()
+                        val dialogBuilder = AlertDialog.Builder(requireActivity())
+                        dialogBuilder.setTitle(R.string.change_marker)
+                        dialogBuilder.setMessage(R.string.do_marker)
+                        dialogBuilder.setPositiveButton(R.string.REMOVE) { dialog, which ->
+                            marker.remove()
+                            remove(point)
+
+                            Toast.makeText(requireContext(), R.string.remove_marker, Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                        dialogBuilder.setNegativeButton(R.string.CHANGER) { dialog, which ->
+
+//                            val text = getText(R.id.editNameMarker)
+//
+//                            marker.snippet = text.toString()
+                            marker.showInfoWindow()
+                        }
+
+                        dialogBuilder.setNeutralButton(R.string.CANCEL) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+
+                        val dialog: AlertDialog = dialogBuilder.create()
+                        dialog.show()
                         true
                     }
                 }
@@ -177,8 +197,8 @@ class MapsFragment : Fragment() {
         _markers[name] = marker
     }
 
-    private fun remove(name: String): Boolean {
-        _markers.remove(name)
+    private fun remove(latLong: LatLng): Boolean {
+        _markers.remove(latLong)
         googleMap.clear()
         for (item in _markers.values) {
             googleMap.addMarker(item)
