@@ -129,6 +129,26 @@ class MapsFragment : Fragment() {
             val markerManager = MarkerManager(googleMap)
             val collection: MarkerManager.Collection = markerManager.newCollection().apply {
                 addMarker {
+                    position(point)
+                    title("Ш-${"%.2f%".format(point.latitude)}")
+                    snippet("----")
+                    add(title, point)
+                }.apply {
+                    showInfoWindow()
+                    tag = dateText
+                    Toast.makeText(requireContext(), R.string.add_marker, Toast.LENGTH_SHORT
+                    ).show()
+                }
+                with(googleMap) {
+                    animateCamera(CameraUpdateFactory.newLatLngZoom(point, 12f))
+                    cameraPosition
+                }
+
+
+
+
+
+                addMarker {
                     position(target)
                     icon(getDrawable(requireContext(), R.drawable.ic_netology_48dp)!!)
                     title("The Moscow Kremlin")
