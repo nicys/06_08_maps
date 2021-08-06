@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -29,6 +30,7 @@ import com.google.maps.android.ktx.model.cameraPosition
 import com.google.maps.android.ktx.utils.collection.addMarker
 import ru.netology.nmedia.R
 import ru.netology.nmedia.ui.extensions.icon
+import ru.netology.nmedia.ui.viewmodel.MarkerViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -73,6 +75,7 @@ class MapsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        val viewModel: MarkerViewModel by viewModels()
 
         lifecycle.coroutineScope.launchWhenCreated {
             googleMap = mapFragment.awaitMap().apply {
@@ -134,7 +137,7 @@ class MapsFragment : Fragment() {
                             title("Ш-${point.latitude}")
                             snippet("no description")
                             add(title!!, point)
-                            addMarker()
+                            viewModel.addMarker()
                         }.apply {
                             showInfoWindow()
                             tag = dateText
@@ -154,8 +157,7 @@ class MapsFragment : Fragment() {
                         dialogBuilder.setMessage(R.string.do_marker)
                         dialogBuilder.setPositiveButton(R.string.REMOVE) { dialog, which ->
                             marker.remove()
-                            remove(point)
-
+                            viewModel.removeMarker(point)
                             Toast.makeText(requireContext(), R.string.remove_marker, Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -197,14 +199,14 @@ class MapsFragment : Fragment() {
         _markers[name] = marker
     }
 
-    private fun remove(latLong: LatLng): Boolean {
-        _markers.remove(latLong)
-        googleMap.clear()
-        for (item in _markers.values) {
-            googleMap.addMarker(item)
-        }
-        return true
-    }
+//    private fun remove(latLong: LatLng): Boolean {
+//        _markers.remove(latLong)
+//        googleMap.clear()
+//        for (item in _markers.values) {
+//            googleMap.addMarker(item)
+//        }
+//        return true
+//    }
 
     var currentDate: Date = Date()
     var dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
