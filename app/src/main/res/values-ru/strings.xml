@@ -15,4 +15,5 @@
     <string name="CHANGER">ИЗМЕНИТЬ</string>
     <string name="change_mark">зменить описание маркера</string>
     <string name="enternamemarker">Введите имя маркера</string>
+    <string name="hint">Введите описание маркера:</string>
 </resources>
