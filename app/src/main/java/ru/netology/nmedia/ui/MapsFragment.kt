@@ -135,7 +135,7 @@ class MapsFragment : Fragment() {
                         addMarker {
                             position(point)
                             title("Ш-${point.latitude}")
-                            snippet("no description")
+                            snippet("-")
                             add(title!!, point)
                             viewModel.addMarker()
                         }.apply {
@@ -164,9 +164,9 @@ class MapsFragment : Fragment() {
 
                         dialogBuilder.setNegativeButton(R.string.CHANGER) { dialog, which ->
 
-//                            val text = getText(R.id.editNameMarker)
-//
-//                            marker.snippet = text.toString()
+                            val text = getText(R.id.editNameMarker)
+
+                            marker.snippet = text.toString()
                             marker.showInfoWindow()
                         }
 

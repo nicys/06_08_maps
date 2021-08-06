@@ -11,7 +11,7 @@ import ru.netology.nmedia.ui.repository.MarkerRopositorySharedPref
 private val empty = MyMarker(
         id = 0L,
         coordinates = null,
-//        snippet = "-",
+        snippet = "-",
 )
 
 class MarkerViewModel(application: Application) : AndroidViewModel(application) {

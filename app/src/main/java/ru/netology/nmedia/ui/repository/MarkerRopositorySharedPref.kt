@@ -46,7 +46,7 @@ class MarkerRopositorySharedPref(
                 myMarker.copy(
                     id = nextId++,
                     coordinates = null,
-//                    snippet = "-"
+                    snippet = "-"
                     )
             ) + markers
             data.value = markers
@@ -63,6 +63,10 @@ class MarkerRopositorySharedPref(
             if (it.id != it.id) it else it.copy(id = it.id)
         }
         data.value = markers
+    }
+
+    override fun snippetByCoord(coord: LatLng) {
+        TODO("Not yet implemented")
     }
 }
 

@@ -8,4 +8,5 @@ interface MarkerRepository {
     fun getAll(): LiveData<List<MyMarker>>
     fun addMarker(myMarker: MyMarker)
     fun removeMarker(coord: LatLng)
+    fun snippetByCoord(coord: LatLng)
 }
