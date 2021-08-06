@@ -125,8 +125,9 @@ class MapsFragment : Fragment() {
                 }
             }
 
-            val target = LatLng(55.751999, 37.617734)
             val markerManager = MarkerManager(googleMap)
+            mapFragment.getMapAsync(OnMapReadyCallback { googleMap ->
+                googleMap.setOnMapClickListener { point ->
             val collection: MarkerManager.Collection = markerManager.newCollection().apply {
                 addMarker {
                     position(point)
