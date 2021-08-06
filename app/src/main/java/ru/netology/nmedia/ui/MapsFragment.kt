@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,17 +23,15 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.collections.MarkerManager
-import com.google.maps.android.ktx.awaitAnimateCamera
 import com.google.maps.android.ktx.awaitMap
-import com.google.maps.android.ktx.model.cameraPosition
 import com.google.maps.android.ktx.utils.collection.addMarker
 import ru.netology.nmedia.R
-import ru.netology.nmedia.ui.extensions.icon
 import ru.netology.nmedia.ui.viewmodel.MarkerViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
+
 
 class MapsFragment : Fragment() {
     private lateinit var googleMap: GoogleMap
@@ -158,15 +155,16 @@ class MapsFragment : Fragment() {
                         dialogBuilder.setPositiveButton(R.string.REMOVE) { dialog, which ->
                             marker.remove()
                             viewModel.removeMarker(point)
-                            Toast.makeText(requireContext(), R.string.remove_marker, Toast.LENGTH_SHORT
+                            Toast.makeText(
+                                requireContext(), R.string.remove_marker, Toast.LENGTH_SHORT
                             ).show()
                         }
 
                         dialogBuilder.setNegativeButton(R.string.CHANGER) { dialog, which ->
-
-                            val text = getText(R.id.editNameMarker)
-
-                            marker.snippet = text.toString()
+                            val text: String = findViewById(TEXT1).getText().toString()
+//                            val text = getText(R.id.editNameMarker)
+//
+//                            marker.snippet = text.toString()
                             marker.showInfoWindow()
                         }
 
