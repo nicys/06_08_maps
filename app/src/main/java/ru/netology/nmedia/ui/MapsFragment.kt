@@ -18,6 +18,7 @@ import androidx.lifecycle.coroutineScope
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -117,7 +118,6 @@ class MapsFragment : Fragment() {
                     val alert = dialogBuilder.create()
                     alert.setTitle(R.string.need_for_permission)
                     alert.show()
-//                      // TODO: show rationale dialog
                 }
                 // 3. Запрашиваем права
                 else -> {
@@ -126,54 +126,46 @@ class MapsFragment : Fragment() {
             }
 
             val markerManager = MarkerManager(googleMap)
-            mapFragment.getMapAsync(OnMapReadyCallback { googleMap ->
-                googleMap.setOnMapClickListener { point ->
-            val collection: MarkerManager.Collection = markerManager.newCollection().apply {
-                addMarker {
-                    position(point)
-                    title("Ш-${"%.2f%".format(point.latitude)}")
-                    snippet("----")
-                    add(title, point)
-                }.apply {
-                    showInfoWindow()
-                    tag = dateText
-                    Toast.makeText(requireContext(), R.string.add_marker, Toast.LENGTH_SHORT
-                    ).show()
-                }
-                with(googleMap) {
-                    animateCamera(CameraUpdateFactory.newLatLngZoom(point, 12f))
-                    cameraPosition
-                }
-
-
-
-
-
-                addMarker {
-                    position(target)
-                    icon(getDrawable(requireContext(), R.drawable.ic_netology_48dp)!!)
-                    title("The Moscow Kremlin")
-                }.apply {
-                    tag = "Any additional data" // Any
-                }
-            }
-            collection.setOnMarkerClickListener { marker ->
-                // TODO: work with marker
-                Toast.makeText(
-                    requireContext(),
-                    (marker.tag as String),
-                    Toast.LENGTH_LONG
-                ).show()
-                true
-            }
-
-            googleMap.awaitAnimateCamera(
-                CameraUpdateFactory.newCameraPosition(
-                    cameraPosition {
-                        target(target)
-                        zoom(15F)
+            mapFragment.getMapAsync(OnMapReadyCallback {
+                it.setOnMapClickListener { point ->
+                    val collection: MarkerManager.Collection = markerManager.newCollection().apply {
+                        addMarker {
+                            position(point)
+                            title("Ш-${point.latitude}")
+                            snippet("no description")
+                            add(title!!, point)
+                        }.apply {
+                            showInfoWindow()
+                            tag = dateText
+                            Toast.makeText(
+                                requireContext(), R.string.add_marker, Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        with(googleMap) {
+                            animateCamera(CameraUpdateFactory.newLatLngZoom(point, 12f))
+                            cameraPosition
+                        }
                     }
-                ))
+
+                    collection.setOnMarkerClickListener { marker ->
+                        // TODO: work with marker
+                        Toast.makeText(
+                            requireContext(),
+                            (marker.tag as String),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        true
+                    }
+                }
+            })
+
+//            googleMap.awaitAnimateCamera(
+//                CameraUpdateFactory.newCameraPosition(
+//                    cameraPosition {
+//                        target(target)
+//                        zoom(15F)
+//                    }
+//                ))
         }
     }
 
