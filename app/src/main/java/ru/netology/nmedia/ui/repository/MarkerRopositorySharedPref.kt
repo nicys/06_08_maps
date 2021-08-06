@@ -5,29 +5,29 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import ru.netology.nmedia.ui.dto.myMarker
+import ru.netology.nmedia.ui.dto.MyMarker
 
 class MarkerRopositorySharedPref(
-        context: Context,
+    context: Context,
 ) : MarkerRepository {
     private val gson = Gson()
     private val prefs = context.getSharedPreferences("repo", Context.MODE_PRIVATE)
-    private val type = TypeToken.getParameterized(List::class.java, myMarker::class.java).type
+    private val type = TypeToken.getParameterized(List::class.java, MyMarker::class.java).type
     private val key = "markers"
     private var nextId = 1L
-    private var markers = emptyList<myMarker>()
+    private var markers = emptyList<MyMarker>()
         set(value) {
             field = value
             sync()
         }
     private val data = MutableLiveData(markers)
 
-    override fun getAll(): LiveData<List<myMarker>> = data
+    override fun getAll(): LiveData<List<MyMarker>> = data
 
     init {
         prefs.getString(key, null)?.let {
             markers = gson.fromJson(it, type)
-            nextId = markers.maxOf { post -> post.id } + 1
+            nextId = markers.maxOf { myMarker -> myMarker.id } + 1
             data.value = markers
         }
     }
@@ -39,11 +39,11 @@ class MarkerRopositorySharedPref(
         }
     }
 
-    override fun add(myMarker: myMarker) {
-        if (myMarker.id == 0L) {
+    override fun add(MyMarker: MyMarker) {
+        if (MyMarker.id == 0L) {
             markers = listOf(
-                    myMarker.copy(
-                            id = nextId++,
+                MyMarker.copy(
+                    id = nextId++,
                     )
             ) + markers
             data.value = markers
@@ -51,7 +51,7 @@ class MarkerRopositorySharedPref(
         }
     }
 
-    override fun remove(id: Long.Companion) {
+    override fun remove(id: Long) {
         markers = markers.map {
             if (it.id != it.id) it else it.copy(id = it.id)
         }
