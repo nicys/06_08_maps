@@ -154,7 +154,6 @@ class MapsFragment : Fragment() {
                             title("Ш-${"%.2f%".format(point.latitude)}")
                             snippet("----")
                             add(title, point)
-                            viewModel.add()
                         }.apply {
                             showInfoWindow()
                             tag = dateText
