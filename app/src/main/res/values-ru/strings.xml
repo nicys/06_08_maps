@@ -8,6 +8,7 @@
     <string name="access_dialog">Для доступа к картам необходимо ваше разрешение.</string>
     <string name="remove_marker">маркер удален</string>
     <string name="add_marker">маркер добавлен</string>
+    <string name="changed_marker">писание маркера изменено</string>
     <string name="change_marker">Изменить или удалить маркер?</string>
     <string name="do_marker">Укажите, что вы хотите сделать с маркером:</string>
     <string name="REMOVE">УДАЛИТЬ</string>
@@ -16,4 +17,6 @@
     <string name="change_mark">зменить описание маркера</string>
     <string name="enternamemarker">Введите имя маркера</string>
     <string name="hint">Введите описание маркера:</string>
+    <string name="save" />
+    <string name="snippet" />
 </resources>

@@ -3,6 +3,7 @@ package ru.netology.nmedia.ui
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -35,6 +37,14 @@ import java.util.concurrent.ConcurrentHashMap
 
 class MapsFragment : Fragment() {
     private lateinit var googleMap: GoogleMap
+
+    val viewModel: MarkerViewModel by viewModels()
+
+    val newSnippetLauncher = registerForActivityResult(SnippetResultContract()) { result ->
+        result ?: return@registerForActivityResult
+        viewModel.changeSnippet(result)
+        viewModel.addMarker()
+    }
 
     @SuppressLint("MissingPermission")
     private val requestPermissionLauncher =
@@ -68,11 +78,13 @@ class MapsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
+    @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         val viewModel: MarkerViewModel by viewModels()
+
 
         lifecycle.coroutineScope.launchWhenCreated {
             googleMap = mapFragment.awaitMap().apply {
@@ -161,15 +173,24 @@ class MapsFragment : Fragment() {
                         }
 
                         dialogBuilder.setNegativeButton(R.string.CHANGER) { dialog, which ->
-                            val text: String = findViewById(TEXT1).getText().toString()
-//                            val text = getText(R.id.editNameMarker)
-//
-//                            marker.snippet = text.toString()
+                            newSnippetLauncher.launch()
+
+                            val intent = Intent()
+                            val newSnippet = intent.getStringExtra("newSnippet")
+//                            val newSnippet = if (savedInstanceState == null) {
+//                                val extras = intent.extras
+//                                extras?.getString(Intent.EXTRA_TEXT)
+//                            } else {
+//                                savedInstanceState.getSerializable(Intent.EXTRA_TEXT) as String?
+//                            }
+
+                            marker.snippet = newSnippet
                             marker.showInfoWindow()
                         }
 
                         dialogBuilder.setNeutralButton(R.string.CANCEL) { dialog, _ ->
-                            dialog.dismiss()
+                            marker.showInfoWindow()
+//                            dialog.dismiss()
                         }
 
                         val dialog: AlertDialog = dialogBuilder.create()
@@ -187,7 +208,10 @@ class MapsFragment : Fragment() {
 //                    }
 //                ))
         }
+
+
     }
+
 
     private val _markers: MutableMap<String, MarkerOptions> =
         ConcurrentHashMap<String, MarkerOptions>()

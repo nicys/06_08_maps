@@ -28,4 +28,12 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun removeMarker(coord: LatLng) = repository.removeMarker(coord)
+
+    fun changeSnippet(snippet: String) {
+        val text = snippet.trim()
+        if (edited.value?.snippet == text) {
+            return
+        }
+        edited.value = edited.value?.copy(snippet = text)
+    }
 }
