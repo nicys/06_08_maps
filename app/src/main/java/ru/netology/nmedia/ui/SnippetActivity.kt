@@ -19,6 +19,7 @@ class SnippetActivity : AppCompatActivity() {
         val fragmentManager: FragmentManager = supportFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
         val myFragment = MapsFragment()
+        binding.edit.requestFocus()
         val ok = binding.ok
         val edit = binding.edit
         ok?.setOnClickListener{
