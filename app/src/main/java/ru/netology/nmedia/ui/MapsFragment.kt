@@ -179,6 +179,9 @@ class MapsFragment : Fragment() {
 
                             newSnippetLauncher.launch()
 
+                            val bundle: Bundle? = arguments
+                            val message = bundle?.getString("message")
+
 
                             val intent = requireActivity().intent
                             val newSnippet = if (savedInstanceState == null) {
