@@ -3,9 +3,9 @@ package ru.netology.nmedia.ui
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.DialogInterface
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,12 +38,13 @@ import java.util.concurrent.ConcurrentHashMap
 class MapsFragment : Fragment() {
     private lateinit var googleMap: GoogleMap
 
-    val viewModel: MarkerViewModel by viewModels()
+    private val viewModel: MarkerViewModel by viewModels()
 
-    val newSnippetLauncher = registerForActivityResult(SnippetResultContract()) { result ->
+    private val newSnippetLauncher = registerForActivityResult(SnippetResultContract()) { result ->
         result ?: return@registerForActivityResult
         viewModel.changeSnippet(result)
         viewModel.addMarker()
+//        viewModel.changeSnippetString(result)
     }
 
     @SuppressLint("MissingPermission")
@@ -75,6 +76,8 @@ class MapsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("logzzz", "onCV")
+
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
@@ -155,7 +158,7 @@ class MapsFragment : Fragment() {
                             ).show()
                         }
                         with(googleMap) {
-                            animateCamera(CameraUpdateFactory.newLatLngZoom(point, 12f))
+                            animateCamera(CameraUpdateFactory.newLatLngZoom(point, 15f))
                             cameraPosition
                         }
                     }
@@ -173,18 +176,21 @@ class MapsFragment : Fragment() {
                         }
 
                         dialogBuilder.setNegativeButton(R.string.CHANGER) { dialog, which ->
+
                             newSnippetLauncher.launch()
 
-                            val intent = Intent()
-                            val newSnippet = intent.getStringExtra("newSnippet")
-//                            val newSnippet = if (savedInstanceState == null) {
-//                                val extras = intent.extras
-//                                extras?.getString(Intent.EXTRA_TEXT)
-//                            } else {
-//                                savedInstanceState.getSerializable(Intent.EXTRA_TEXT) as String?
-//                            }
+
+                            val intent = requireActivity().intent
+                            val newSnippet = if (savedInstanceState == null) {
+                                val extras = intent.extras
+                                extras?.getString("newSnippet")
+                            } else {
+                                savedInstanceState.getString("newSnippet", "555555") as String?
+                            }
 
                             marker.snippet = newSnippet
+
+
                             marker.showInfoWindow()
                         }
 
@@ -236,7 +242,23 @@ class MapsFragment : Fragment() {
 
     var timeFormat: DateFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
     var timeText: String = timeFormat.format(currentDate)
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("logzzz", "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("logzzz", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("logzzz", "onStop")
+    }
 }
+
 
 
 

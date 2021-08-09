@@ -9,9 +9,9 @@ import ru.netology.nmedia.ui.repository.MarkerRepository
 import ru.netology.nmedia.ui.repository.MarkerRopositorySharedPref
 
 private val empty = MyMarker(
-        id = 0L,
-        coordinates = null,
-        snippet = "-",
+    id = 0L,
+    coordinates = null,
+    snippet = "-",
 )
 
 class MarkerViewModel(application: Application) : AndroidViewModel(application) {
@@ -35,5 +35,14 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
             return
         }
         edited.value = edited.value?.copy(snippet = text)
+    }
+
+    fun changeSnippetString(snippet: String): String {
+        val text = snippet.trim()
+        if (edited.value?.snippet == text) {
+            return text
+        }
+        edited.value = edited.value?.copy(snippet = text)
+        return snippet
     }
 }
