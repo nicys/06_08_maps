@@ -26,13 +26,12 @@ class SnippetActivity : AppCompatActivity() {
             val newSnippet = Bundle()
             newSnippet.putString("message", edit?.text.toString())
             myFragment.arguments = newSnippet
-
+//            fragmentTransaction.add(R.id.frameLayout, myFragment).commit()
 
             val snippet = binding.edit.text.toString()
-            intent.putExtra("newSnippet", snippet)
+            intent.putExtra("message", snippet)
             setResult(Activity.RESULT_OK, intent)
             finish()
-
 //            fragmentTransaction.add(R.id.frameLayout, MapsFragment()).commit()
         }
     }
