@@ -180,16 +180,16 @@ class MapsFragment : Fragment() {
                             newSnippetLauncher.launch()
 
                             val bundle: Bundle? = arguments
-                            val message = bundle?.getString("message")
+                            val newSnippet = bundle?.getString("message")
 
 
-                            val intent = requireActivity().intent
-                            val newSnippet = if (savedInstanceState == null) {
-                                val extras = intent.extras
-                                extras?.getString("newSnippet")
-                            } else {
-                                savedInstanceState.getString("newSnippet", "555555") as String?
-                            }
+//                            val intent = requireActivity().intent
+//                            val newSnippet = if (savedInstanceState == null) {
+//                                val extras = intent.extras
+//                                extras?.getString("newSnippet")
+//                            } else {
+//                                savedInstanceState.getString("newSnippet", "555555") as String?
+//                            }
 
                             marker.snippet = newSnippet
 
