@@ -26,7 +26,26 @@ class SnippetActivity : AppCompatActivity() {
             val newSnippet = Bundle()
             newSnippet.putString("message", edit?.text.toString())
             myFragment.arguments = newSnippet
-            fragmentTransaction.add(R.id.frameLayout, MapsFragment()).commit()
+
+
+            val snippet = binding.edit.text.toString()
+            intent.putExtra("newSnippet", snippet)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+
+//            fragmentTransaction.add(R.id.frameLayout, MapsFragment()).commit()
         }
     }
 }
+
+//binding.ok.setOnClickListener {
+//    if (binding.edit.text.isNullOrBlank()) {
+//        setResult(Activity.RESULT_CANCELED, intent)
+//    } else {
+//        val snippet = binding.edit.text.toString()
+//        intent.putExtra("newSnippet", snippet)
+//        Log.i("TAG", "intent.putExtra")
+//        setResult(Activity.RESULT_OK, intent)
+//    }
+//    finish()
+//}
