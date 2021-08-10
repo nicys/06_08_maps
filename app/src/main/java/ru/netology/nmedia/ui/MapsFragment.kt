@@ -179,10 +179,6 @@ class MapsFragment : Fragment() {
 
                             newSnippetLauncher.launch()
 
-                            val act = SnippetActivity()
-                            val newSnippet = SnippetActivity().getIntent()?.extras.toString()
-
-
 
 //                            val bundle: Bundle? = arguments
 //                            val newSnippet = bundle?.getString("message")
@@ -195,10 +191,9 @@ class MapsFragment : Fragment() {
 //                            } else {
 //                                savedInstanceState?.getString("message", "555555") as String?
 //                            }
-                            marker.snippet = newSnippet
+//                            marker.snippet = newSnippet.toString()
 
 //                            marker.snippet = newSnippet
-
 
                             marker.showInfoWindow()
                         }

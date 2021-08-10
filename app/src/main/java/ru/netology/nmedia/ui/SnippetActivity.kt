@@ -23,9 +23,9 @@ class SnippetActivity : AppCompatActivity() {
         val ok = binding.ok
         val edit = binding.edit
         ok?.setOnClickListener{
-            val newSnippet = Bundle()
-            newSnippet.putString("message", edit?.text.toString())
-            myFragment.arguments = newSnippet
+//            val newSnippet = Bundle()
+//            newSnippet.putString("message", edit?.text.toString())
+//            myFragment.arguments = newSnippet
 //            fragmentTransaction.add(R.id.frameLayout, myFragment).commit()
 
             val snippet = binding.edit.text.toString()
