@@ -27,7 +27,7 @@ import com.google.maps.android.ktx.awaitMap
 import com.google.maps.android.ktx.utils.collection.addMarker
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.nmedia.R
-import ru.netology.nmedia.ui.dto.MyMarker
+import ru.netology.nmedia.ui.dto.Marker
 import ru.netology.nmedia.ui.viewmodel.MarkerViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -42,7 +42,7 @@ import java.util.concurrent.ConcurrentHashMap
 class MapsFragment : Fragment() {
     private lateinit var googleMap: GoogleMap
 
-    private var markers = emptyList<MyMarker>()
+    private var markers = emptyList<Marker>()
 
     @SuppressLint("MissingPermission")
     private val requestPermissionLauncher =

@@ -5,8 +5,8 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class MyMarker(
-        val id: Long,
-        val coordinates: LatLng?,
-        val snippet: String,
+data class Marker(
+    val id: Long,
+    val coordinates: LatLng?,
+    val name: String,
 ) : Parcelable
