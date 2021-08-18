@@ -151,7 +151,7 @@ class MapsFragment : Fragment() {
                     val collection: MarkerManager.Collection = markerManager.newCollection().apply {
                         addMarker {
                             position(point)
-                            title("Ш-${"%.2f%".format(point.latitude)}")
+                            title("$position")
                             snippet("----")
                             add(title, point)
                         }.apply {
