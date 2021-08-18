@@ -16,4 +16,6 @@
     <string name="enternamemarker">Enter name of marker</string>
     <string name="menu_edit">Edit name of marker</string>
     <string name="menu_delete">Delete of marker</string>
+    <string name="avatar_marker">Image</string>
+    <string name="more_vert_name">Popup menu</string>
 </resources>
