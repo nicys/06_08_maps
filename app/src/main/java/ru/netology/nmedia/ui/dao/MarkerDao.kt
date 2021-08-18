@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import ru.netology.nmedia.ui.MarkerEntity
+import ru.netology.nmedia.ui.entity.MarkerEntity
 
 @Dao
 interface MarkerDao {

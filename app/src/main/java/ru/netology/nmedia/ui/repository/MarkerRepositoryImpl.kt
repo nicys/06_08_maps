@@ -1,15 +1,10 @@
 package ru.netology.nmedia.ui.repository
 
-import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import ru.netology.nmedia.ui.MarkerEntity
 import ru.netology.nmedia.ui.dao.MarkerDao
 import ru.netology.nmedia.ui.dto.Marker
-import ru.netology.nmedia.ui.toDto
+import ru.netology.nmedia.ui.entity.MarkerEntity
+import ru.netology.nmedia.ui.entity.toDto
 
 class MarkerRepositoryImpl(
     private val dao: MarkerDao

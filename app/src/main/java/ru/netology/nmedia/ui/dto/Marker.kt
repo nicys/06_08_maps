@@ -7,6 +7,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Marker(
     val id: Short,
-    val coordinates: LatLng?,
+    val coordinates: LatLng,
     val name: String,
 ) : Parcelable

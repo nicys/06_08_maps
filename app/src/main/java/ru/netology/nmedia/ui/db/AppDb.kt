@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import ru.netology.nmedia.ui.MarkerEntity
 import ru.netology.nmedia.ui.dao.MarkerDao
+import ru.netology.nmedia.ui.entity.MarkerEntity
 
 @Database(entities = [MarkerEntity::class], version = 1, exportSchema = false)
 

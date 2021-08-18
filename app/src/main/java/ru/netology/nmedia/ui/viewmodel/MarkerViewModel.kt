@@ -30,7 +30,7 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
         loadMarkers()
     }
 
-    fun loadMarkers() = viewModelScope.launch {
+    private fun loadMarkers() = viewModelScope.launch {
         try {
             repository.getAll()
             _dataState.value = FeedModel()
