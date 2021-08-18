@@ -8,7 +8,7 @@ import ru.netology.nmedia.ui.dto.Marker
 @Entity
 data class MarkerEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Short,
     val coordinates: LatLng?,
     val name: String,
 ) {
