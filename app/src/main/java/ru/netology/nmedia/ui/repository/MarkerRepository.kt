@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import ru.netology.nmedia.ui.dto.Marker
 
 interface MarkerRepository {
-    fun getAll(): LiveData<List<Marker>>
-    fun add(marker: Marker)
-    fun remove(id: Long)
+    val data: LiveData<List<Marker>>
+
+    suspend fun getAll()
+    suspend fun save(marker: Marker)
+    suspend fun removedById(id: Short)
 }
