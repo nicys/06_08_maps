@@ -1,24 +1,68 @@
 package ru.netology.nmedia.ui.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.*
+import com.google.android.gms.maps.model.LatLng
+import kotlinx.coroutines.launch
+import ru.netology.nmedia.ui.db.AppDb
 import ru.netology.nmedia.ui.dto.Marker
+import ru.netology.nmedia.ui.model.FeedModel
 import ru.netology.nmedia.ui.repository.MarkerRepository
-import ru.netology.nmedia.ui.repository.MarkerRopositorySharedPref
+import ru.netology.nmedia.ui.repository.MarkerRepositoryImpl
 
 private val empty = Marker(
-        id = 0,
-        coordinates = null,
-        name = "-",
+    id = 0,
+    coordinates = LatLng(0.0, 0.0),
+    name = "***",
 )
 
 class MarkerViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: MarkerRepository = MarkerRopositorySharedPref(application)
-    val data = repository.getAll()
+    private val repository: MarkerRepository =
+        MarkerRepositoryImpl(AppDb.getInstance(context = application).markerDao())
 
-    fun add(marker: Marker) {
-        repository.add(marker)
+    val data: LiveData<FeedModel> = repository.data.map(::FeedModel)
+
+    private val _dataState = MutableLiveData<FeedModel>()
+
+    val edited = MutableLiveData(empty)
+
+    init {
+        loadMarkers()
     }
 
-    fun remove(id: Long) = repository.remove(id)
+    fun loadMarkers() = viewModelScope.launch {
+        try {
+            repository.getAll()
+            _dataState.value = FeedModel()
+        } catch (e: Exception) {
+            _dataState.value = FeedModel(error = true)
+        }
+    }
+
+    fun save() {
+        edited.value?.let {
+            viewModelScope.launch {
+                try {
+                    repository.save(it)
+                    _dataState.value = FeedModel()
+                } catch (e: Exception) {
+                    _dataState.value = FeedModel(error = true)
+                }
+                edited.value = empty
+            }
+        }
+    }
+
+    fun removedById(id: Short) {
+        viewModelScope.launch {
+            try {
+                repository.removedById(id)
+                _dataState.value = FeedModel()
+            } catch (e: Exception) {
+                _dataState.value = FeedModel(error = true)
+            }
+        }
+    }
+
+
 }
