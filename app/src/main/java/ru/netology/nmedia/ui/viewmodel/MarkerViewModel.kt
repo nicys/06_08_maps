@@ -64,5 +64,9 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    fun edit(marker: Marker) {
+        edited.value = marker
+    }
+
 
 }
