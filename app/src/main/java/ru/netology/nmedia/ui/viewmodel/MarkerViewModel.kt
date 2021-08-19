@@ -39,6 +39,17 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    fun changeNameOfMarker(name: String) {
+        val text = name.trim()
+        if (edited.value?.name == text) {
+            return
+        } else {
+            edited.value = edited.value?.copy(
+                name = text
+            )
+        }
+    }
+
     fun save() {
         edited.value?.let {
             viewModelScope.launch {
