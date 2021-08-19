@@ -19,4 +19,6 @@
     <string name="avatar_marker">Image</string>
     <string name="more_vert_name">Popup menu</string>
     <string name="title_of_edit">Specify a new name for the marker:</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="submit_button">Submit</string>
 </resources>

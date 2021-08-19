@@ -20,4 +20,6 @@
     <string name="avatar_marker">Image</string>
     <string name="more_vert_name">Popup menu</string>
     <string name="title_of_edit">Укажите новое имя для маркера:</string>
+    <string name="cancel_button">Отмена</string>
+    <string name="submit_button">Подписать</string>
 </resources>
