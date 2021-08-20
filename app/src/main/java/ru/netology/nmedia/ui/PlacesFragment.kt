@@ -23,7 +23,7 @@ class PlacesFragment : Fragment() {
 
         return FragmentPlacesBinding.inflate(inflater, container, false).root.also {
             it.adapter = adapter
-            it.recycledViewPool.setMaxRecycledViews(R.layout.card_place, 5)
+            it.recycledViewPool.setMaxRecycledViews(R.layout.fragment_places, 5)
         }
     }
 }
