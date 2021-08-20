@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
@@ -14,9 +15,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.maps.android.collections.MarkerManager
 import com.google.maps.android.ktx.awaitAnimateCamera
@@ -100,6 +103,29 @@ class MapsFragment : Fragment() {
             val markerManager = MarkerManager(googleMap)
             val viewModel by viewModels<MapViewModel>(ownerProducer = ::requireActivity)
             val collection: MarkerManager.Collection = markerManager.newCollection()
+
+            mapFragment.getMapAsync(OnMapReadyCallback { googleMap ->
+                googleMap.setOnMapClickListener {
+                    val marker = collection.addMarker {
+                        position(it)
+                        title(" ")
+                        snippet("$position")
+                    }.apply {
+                        showInfoWindow()
+
+                        Toast.makeText(requireContext(), R.string.add_marker, Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    with(googleMap) {
+                        animateCamera(CameraUpdateFactory.newLatLngZoom(it, 15f))
+                        cameraPosition
+                    }
+//                    findNavController().navigate(R.id.action_mapsFragment_to_editNameFragment,
+//                        Bundle().apply
+//                        { textArg = marker.title })
+                }
+            })
+
             viewModel.places.observe(viewLifecycleOwner) {
                 it.forEach {
                     collection.addMarker {
