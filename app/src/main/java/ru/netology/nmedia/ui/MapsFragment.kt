@@ -106,13 +106,13 @@ class MapsFragment : Fragment() {
 
             mapFragment.getMapAsync(OnMapReadyCallback { googleMap ->
                 googleMap.setOnMapClickListener {
-                    val marker = collection.addMarker {
+                    collection.addMarker {
                         position(it)
                         title(" ")
                         snippet("$position")
+                        viewModel.save()
                     }.apply {
                         showInfoWindow()
-
                         Toast.makeText(requireContext(), R.string.add_marker, Toast.LENGTH_SHORT
                         ).show()
                     }

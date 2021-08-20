@@ -40,10 +40,10 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     init {
-        loadMarkers()
+        loadPlaces()
     }
 
-    fun loadMarkers() = viewModelScope.launch {
+    fun loadPlaces() = viewModelScope.launch {
         try {
             repository.getAll()
             _dataState.value = FeedModel()
@@ -52,7 +52,7 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun saveMarker() {
+    fun save() {
         edited.value?.let {
             viewModelScope.launch {
                 try {
@@ -66,7 +66,7 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
         edited.value = empty
     }
 
-    fun changeContent(name: String) {
+    fun changeName(name: String) {
         val text = name.trim()
         if (edited.value?.name == text) {
             return
@@ -76,7 +76,7 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
-    fun deleteMarker(id: Short) {
+    fun deleteById(id: Short) {
         edited.value?.let {
             viewModelScope.launch {
                 try {
