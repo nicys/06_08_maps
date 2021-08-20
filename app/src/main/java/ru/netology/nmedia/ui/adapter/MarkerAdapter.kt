@@ -36,7 +36,7 @@ class MarkerViewHolder(
 
     fun bind(marker: Marker) {
         binding.apply {
-            markerName.text = marker.name
+            markerName.text = marker.title
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.options_marker)

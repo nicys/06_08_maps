@@ -15,7 +15,7 @@ import ru.netology.nmedia.ui.viewmodel.MarkerViewModel
 class EditNameFragment : Fragment() {
 
     companion object {
-        val Bundle.textArg: String? by StringArg
+        var Bundle.textArg: String? by StringArg
     }
 
     private val viewModel: MarkerViewModel by viewModels(

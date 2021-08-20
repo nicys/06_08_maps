@@ -12,12 +12,12 @@ data class MarkerEntity(
     val id: Short,
     @Embedded
     val coordinates: LatLng,
-    val name: String,
+    val title: String,
 ) {
     fun toDto() = Marker(
         id,
         coordinates,
-        name
+        title
     )
 
     companion object {
@@ -25,7 +25,7 @@ data class MarkerEntity(
             MarkerEntity(
                 dto.id,
                 dto.coordinates,
-                dto.name
+                dto.title
             )
     }
 }

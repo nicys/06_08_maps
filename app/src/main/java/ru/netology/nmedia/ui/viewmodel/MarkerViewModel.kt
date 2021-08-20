@@ -13,7 +13,7 @@ import ru.netology.nmedia.ui.repository.MarkerRepositoryImpl
 private val empty = Marker(
     id = 0,
     coordinates = LatLng(0.0, 0.0),
-    name = "***",
+    title = "***",
 )
 
 class MarkerViewModel(application: Application) : AndroidViewModel(application) {
@@ -25,6 +25,17 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
     private val _dataState = MutableLiveData<FeedModel>()
 
     val edited = MutableLiveData(empty)
+
+//    private val _places = MutableLiveData<List<Marker>>()
+//    val places: LiveData<List<Marker>>
+//        get() = _places
+//    private val _selectedPlace = MutableLiveData<Marker>()
+//    val selectedPlace: LiveData<Marker>
+//        get() = _selectedPlace
+//
+//    fun selectPlace(marker: Marker) {
+//        _selectedPlace.value = marker
+//    }
 
     init {
         loadMarkers()
@@ -39,13 +50,13 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun changeNameOfMarker(name: String) {
-        val text = name.trim()
-        if (edited.value?.name == text) {
+    fun changeNameOfMarker(title: String) {
+        val text = title.trim()
+        if (edited.value?.title == text) {
             return
         } else {
             edited.value = edited.value?.copy(
-                name = text
+                title = text
             )
         }
     }

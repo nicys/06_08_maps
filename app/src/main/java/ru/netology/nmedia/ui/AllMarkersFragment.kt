@@ -36,11 +36,16 @@ class AllMarkersFragment : Fragment() {
                 viewModel.edit(marker)
             }
         })
-
+//        viewModel.places.observe(viewLifecycleOwner, adapter::submitList)
         binding.markersList.adapter = adapter
         viewModel.data.observe(viewLifecycleOwner, { state ->
             adapter.submitList(state.markers)
         })
+
+//        return FragmentAllMarkersBinding.inflate(inflater, container, false).root.also {
+//            it.adapter = adapter
+//            it.recycledViewPool.setMaxRecycledViews(R.layout.item_place, 5)
+//        }
 
         return binding.root
     }
