@@ -49,7 +49,7 @@ class PlacesAdapter(
 
     override fun onBindViewHolder(holder: PlacesViewHolder, position: Int) {
         (holder.itemView.tag as? Animator)?.cancel()
-        holder.binding.root.text = getItem(position).name
+        holder.binding.markerName.text = getItem(position).name
         println("on bind viewHolder")
     }
 }
