@@ -16,8 +16,14 @@ class PlacesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val binding =
         val viewModel by viewModels<MapViewModel>(ownerProducer = ::requireActivity)
         val adapter = PlacesAdapter { viewModel.selectPlace(it) }
+
+        binding.markersList.adapter = adapter
+        viewModel.data.observe(viewLifecycleOwner, { state ->
+            adapter.submitList(state.markers)
+        })
 
         viewModel.places.observe(viewLifecycleOwner, adapter::submitList)
 
