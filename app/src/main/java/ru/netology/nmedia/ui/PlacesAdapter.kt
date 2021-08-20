@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
-import ru.netology.nmedia.databinding.ItemPlaceBinding
+import ru.netology.nmedia.databinding.CardPlaceBinding
 import ru.netology.nmedia.ui.dto.Place
 
 class PlacesAdapter(
@@ -25,11 +25,11 @@ class PlacesAdapter(
             oldItem == newItem
     }
 ) {
-    override fun getItemViewType(position: Int): Int = R.layout.item_place
+    override fun getItemViewType(position: Int): Int = R.layout.card_place
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacesViewHolder =
         PlacesViewHolder(
-            ItemPlaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            CardPlaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         ).apply {
             itemView.setOnClickListener {
                 val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1F, 1.25F, 1F)
@@ -54,4 +54,4 @@ class PlacesAdapter(
     }
 }
 
-class PlacesViewHolder(val binding: ItemPlaceBinding) : RecyclerView.ViewHolder(binding.root)
+class PlacesViewHolder(val binding: CardPlaceBinding) : RecyclerView.ViewHolder(binding.root)
