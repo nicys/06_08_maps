@@ -26,17 +26,6 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
 
     val edited = MutableLiveData(empty)
 
-//    private val _places = MutableLiveData<List<Marker>>()
-//    val places: LiveData<List<Marker>>
-//        get() = _places
-//    private val _selectedPlace = MutableLiveData<Marker>()
-//    val selectedPlace: LiveData<Marker>
-//        get() = _selectedPlace
-//
-//    fun selectPlace(marker: Marker) {
-//        _selectedPlace.value = marker
-//    }
-
     init {
         loadMarkers()
     }

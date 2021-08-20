@@ -2,6 +2,7 @@ package ru.netology.nmedia.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.AsyncQueryHandler
 import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -17,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -30,7 +32,9 @@ import com.google.maps.android.ktx.awaitAnimateCamera
 import com.google.maps.android.ktx.awaitMap
 import com.google.maps.android.ktx.model.cameraPosition
 import com.google.maps.android.ktx.utils.collection.addMarker
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.async
 import ru.netology.nmedia.R
 import ru.netology.nmedia.ui.EditNameFragment.Companion.textArg
 import ru.netology.nmedia.ui.dto.Marker
@@ -39,6 +43,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
+import kotlin.coroutines.EmptyCoroutineContext
 
 class MapsFragment : Fragment() {
     private lateinit var googleMap: GoogleMap
@@ -165,9 +170,9 @@ class MapsFragment : Fragment() {
                         animateCamera(CameraUpdateFactory.newLatLngZoom(it, 15f))
                         cameraPosition
                     }
-//                    findNavController().navigate(R.id.action_mapsFragment_to_editNameFragment,
-//                        Bundle().apply
-//                        { textArg = marker.title })
+                    findNavController().navigate(R.id.action_mapsFragment_to_editNameFragment,
+                        Bundle().apply
+                        { textArg = marker.title })
                 }
             })
 
