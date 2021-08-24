@@ -52,6 +52,17 @@ class PlacesAdapter(
         holder.binding.markerName.text = getItem(position).name
         println("on bind viewHolder")
     }
+
+//    override fun onBindViewHolder(holder: PlacesViewHolder, position: Int) {
+//        val place = getItem(position)
+//        holder.bind(place)
+//    }
 }
 
-class PlacesViewHolder(val binding: CardPlaceBinding) : RecyclerView.ViewHolder(binding.root)
+class PlacesViewHolder(val binding: CardPlaceBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(place: Place) {
+        binding.apply {
+            markerName.text = place.name
+        }
+    }
+}
