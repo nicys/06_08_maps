@@ -43,7 +43,7 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
         loadPlaces()
     }
 
-    fun loadPlaces() = viewModelScope.launch {
+    private fun loadPlaces() = viewModelScope.launch {
         try {
             repository.getAll()
             _dataState.value = FeedModel()
