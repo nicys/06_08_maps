@@ -40,6 +40,7 @@ class MapsFragment : Fragment() {
 
     private val viewModel: MarkerViewModel by viewModels()
 
+
     private val newSnippetLauncher = registerForActivityResult(SnippetResultContract()) { result ->
         result ?: return@registerForActivityResult
         viewModel.changeSnippet(result)
