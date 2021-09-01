@@ -7,9 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.netology.nmedia.ui.db.AppDb
 import ru.netology.nmedia.ui.dto.Marker
+import ru.netology.nmedia.ui.model.FeedModel
 import ru.netology.nmedia.ui.repository.MarkerRepository
 import ru.netology.nmedia.ui.repository.MarkerRepositoryImpl
 
@@ -23,7 +25,7 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: MarkerRepository =
         MarkerRepositoryImpl(AppDb.getInstance(context = application).markerDao())
 
-    val data: LiveData<FeedModel> = repository.data.map(::FeedModel)
+    val data: Flow<FeedModel> = repository.data.map(::FeedModel)
 
     private val edited = MutableLiveData(empty)
 
@@ -46,7 +48,7 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
-    fun removeId(id: Int) {
+    fun removeById(id: Int) {
         edited.value?.let {
             viewModelScope.launch {
                 try {
