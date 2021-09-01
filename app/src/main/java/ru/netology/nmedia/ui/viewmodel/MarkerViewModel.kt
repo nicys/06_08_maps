@@ -6,16 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
 import ru.netology.nmedia.ui.dto.Marker
 import ru.netology.nmedia.ui.repository.MarkerRepository
-import ru.netology.nmedia.ui.repository.MarkerRopositorySharedPref
 
 private val empty = Marker(
-    id = 0L,
-    coordinates = null,
-    snippet = "-",
+    id = 0,
+    title = "",
+    coordinates = "",
 )
 
 class MarkerViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: MarkerRepository = MarkerRopositorySharedPref(application)
+    private val repository: MarkerRepository = MarkerRopositoryImpl(application)
     val data = repository.getAll()
 
     val edited = MutableLiveData(empty)
