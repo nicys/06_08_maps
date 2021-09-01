@@ -14,7 +14,6 @@
         android:layout_margin="8dp"
         android:checkable="true"
         android:clickable="true"
-        app:cardBackgroundColor="@color/light_blue"
         app:cardElevation="5dp"
         android:focusable="true">
 
@@ -32,7 +31,7 @@
                 android:background="@android:color/transparent"
                 android:checkable="true"
                 android:padding="0dp"
-                android:src="@drawable/ic_baseline_format_list_bulleted_24"
+                android:src="@drawable/ic_more_vert_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -43,38 +42,54 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:paddingBottom="16dp"
-                android:background="@color/white"
                 android:text="@string/new_marker"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/popup_menu"/>
 
             <TextView
-                android:id="@+id/coordinates"
+                android:id="@+id/latitude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/coordinates"
-                android:textStyle="italic"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary"
+                android:layout_marginTop="8dp"
+                android:text="@string/latitude"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title" />
 
             <TextView
-                android:id="@+id/coordinates_text"
+                android:id="@+id/latitude_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/coordinates"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="@color/colorPrimaryDark"
-                app:layout_constraintStart_toEndOf="@+id/coordinates"
+                android:layout_marginTop="8dp"
+                android:text="@string/latitude"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/latitude"
                 app:layout_constraintTop_toBottomOf="@id/title" />
+
+
+            <TextView
+                android:id="@+id/longitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/longitude"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/latitude" />
+
+            <TextView
+                android:id="@+id/longitude_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/longitude"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/longitude"
+                app:layout_constraintTop_toBottomOf="@id/latitude" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
