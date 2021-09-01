@@ -20,4 +20,6 @@
     <string name="save" />
     <string name="snippet" />
     <string name="list_of_markers">Список маркеров</string>
+    <string name="new_marker">Новый маркер</string>
+    <string name="coordinates">Координаты</string>
 </resources>
