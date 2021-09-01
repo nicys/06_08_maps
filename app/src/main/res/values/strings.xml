@@ -21,4 +21,6 @@
     <string name="list_of_markers">List of markers</string>
     <string name="new_marker">New marker</string>
     <string name="coordinates">Coordinates</string>
+    <string name="popup_menu_edit">Edit</string>
+    <string name="popup_menu_remove">Remove</string>
 </resources>
