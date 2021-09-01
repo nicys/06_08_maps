@@ -7,6 +7,6 @@ import ru.netology.nmedia.ui.dto.Marker
 
 interface MarkerRepository {
     val data: Flow<List<Marker>>
-    fun save(marker: Marker)
-    fun removeById(id: Int)
+    suspend fun save(marker: Marker)
+    suspend fun removeById(id: Int)
 }
