@@ -15,11 +15,7 @@ import ru.netology.nmedia.ui.model.FeedModel
 import ru.netology.nmedia.ui.repository.MarkerRepository
 import ru.netology.nmedia.ui.repository.MarkerRepositoryImpl
 
-private val empty = Marker(
-    id = 0,
-    title = "",
-    coordinates = "",
-)
+private val empty = Marker()
 
 class MapViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: MarkerRepository =

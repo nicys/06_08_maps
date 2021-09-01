@@ -7,17 +7,20 @@ data class MarkerEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val title: String,
-    val coordinates: String,
+    val latitude: Double,
+    val longitude: Double,
 ) {
     fun toDto() = Marker(
         id,
         title,
-        coordinates
+        latitude,
+        longitude
     )
 }
 
 fun Marker.toEntity() = MarkerEntity(
     id,
     title,
-    coordinates
+    latitude,
+    longitude
 )
