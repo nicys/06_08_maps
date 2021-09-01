@@ -5,6 +5,9 @@ import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.MarkerOptions
+import ru.netology.nmedia.ui.dto.Marker
+import ru.netology.nmedia.ui.entity.MarkerEntity
+import ru.netology.nmedia.ui.entity.toEntity
 
 fun MarkerOptions.icon(drawable: Drawable) {
     val canvas = Canvas()
@@ -18,3 +21,6 @@ fun MarkerOptions.icon(drawable: Drawable) {
     drawable.draw(canvas)
     icon(BitmapDescriptorFactory.fromBitmap(bitmap))
 }
+
+fun List<Marker>.toEntity(): List<MarkerEntity> = map(Marker::toEntity)
+fun List<MarkerEntity>.toDto(): List<Marker> = map(MarkerEntity::toDto)
