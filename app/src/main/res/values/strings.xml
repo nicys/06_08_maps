@@ -18,4 +18,5 @@
     <string name="hint">Enter a description of the marker:</string>
     <string name="save" />
     <string name="snippet" />
+    <string name="list_of_markers">List of markers</string>
 </resources>
