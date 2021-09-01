@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.netology.nmedia.ui.db.AppDb
@@ -17,11 +18,16 @@ import ru.netology.nmedia.ui.repository.MarkerRepositoryImpl
 
 private val empty = Marker()
 
-class MapViewModel(application: Application) : AndroidViewModel(application) {
+class MarkerViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: MarkerRepository =
         MarkerRepositoryImpl(AppDb.getInstance(context = application).markerDao())
 
-    val data: Flow<FeedModel> = repository.data.map(::FeedModel)
+//    val data: Flow<FeedModel> = repository.data.map(::FeedModel)
+
+    val data = repository.data
+        .catch { e: Throwable ->
+            e.printStackTrace()
+        }
 
     private val edited = MutableLiveData(empty)
 
