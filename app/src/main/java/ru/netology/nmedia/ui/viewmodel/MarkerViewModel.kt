@@ -4,11 +4,11 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
-import ru.netology.nmedia.ui.dto.MyMarker
+import ru.netology.nmedia.ui.dto.Marker
 import ru.netology.nmedia.ui.repository.MarkerRepository
 import ru.netology.nmedia.ui.repository.MarkerRopositorySharedPref
 
-private val empty = MyMarker(
+private val empty = Marker(
     id = 0L,
     coordinates = null,
     snippet = "-",

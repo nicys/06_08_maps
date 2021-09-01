@@ -6,24 +6,24 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import ru.netology.nmedia.ui.dto.MyMarker
+import ru.netology.nmedia.ui.dto.Marker
 
 class MarkerRopositorySharedPref(
     context: Context,
 ) : MarkerRepository {
     private val gson = Gson()
     private val prefs = context.getSharedPreferences("repo", Context.MODE_PRIVATE)
-    private val type = TypeToken.getParameterized(List::class.java, MyMarker::class.java).type
+    private val type = TypeToken.getParameterized(List::class.java, Marker::class.java).type
     private val key = "markers"
     private var nextId = 1L
-    private var markers = emptyList<MyMarker>()
+    private var markers = emptyList<Marker>()
         set(value) {
             field = value
             sync()
         }
     private val data = MutableLiveData(markers)
 
-    override fun getAll(): LiveData<List<MyMarker>> = data
+    override fun getAll(): LiveData<List<Marker>> = data
 
     init {
         prefs.getString(key, null)?.let {
@@ -40,10 +40,10 @@ class MarkerRopositorySharedPref(
         }
     }
 
-    override fun addMarker(myMarker: MyMarker) {
-        if (myMarker.id == 0L) {
+    override fun addMarker(marker: Marker) {
+        if (marker.id == 0L) {
             markers = listOf(
-                myMarker.copy(
+                marker.copy(
                     id = nextId++,
                     coordinates = null,
                     snippet = "-"
@@ -53,7 +53,7 @@ class MarkerRopositorySharedPref(
             return
         }
         markers = markers.map {
-            if (it.id != myMarker.id) it else it.copy(coordinates = myMarker.coordinates)
+            if (it.id != marker.id) it else it.copy(coordinates = marker.coordinates)
         }
         data.value = markers
     }
