@@ -9,6 +9,7 @@ import ru.netology.nmedia.ui.dao.MarkerDao
 import ru.netology.nmedia.ui.entity.MarkerEntity
 
 @Database(entities = [MarkerEntity::class], version = 1, exportSchema = false)
+@TypeConverters
 abstract class AppDb : RoomDatabase() {
 
     abstract fun markerDao(): MarkerDao
