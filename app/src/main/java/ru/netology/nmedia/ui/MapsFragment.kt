@@ -45,9 +45,15 @@ import java.util.concurrent.ConcurrentHashMap
 class MapsFragment : Fragment() {
     private lateinit var googleMap: GoogleMap
 
-    private val viewModel: MarkerViewModel by viewModels(
-        ownerProducer = ::requireParentFragment
-    )
+    private val viewModel: MarkerViewModel by viewModels()
+
+
+//    private val newSnippetLauncher = registerForActivityResult(SnippetResultContract()) { result ->
+//        result ?: return@registerForActivityResult
+//        viewModel.changeSnippet(result)
+//        viewModel.addMarker()
+////        viewModel.changeSnippetString(result)
+//    }
 
     @SuppressLint("MissingPermission")
     private val requestPermissionLauncher =
@@ -56,10 +62,20 @@ class MapsFragment : Fragment() {
                 googleMap.apply {
                     isMyLocationEnabled = true
                     uiSettings.isMyLocationButtonEnabled = true
+                    mapType = GoogleMap.MAP_TYPE_NORMAL
                 }
             } else {
-                Toast.makeText(requireContext(), R.string.permission_unavailable, Toast.LENGTH_LONG)
-                    .show()
+                val dialogBuilder = AlertDialog.Builder(requireActivity())
+                dialogBuilder.setMessage(R.string.sorry_dialog)
+                    .setCancelable(false)
+                    .setPositiveButton(
+                        R.string.ok,
+                        DialogInterface.OnClickListener { dialog, id ->
+                            dialog.dismiss()
+                        })
+                val alert = dialogBuilder.create()
+                alert.setTitle(R.string.lack_of_permission)
+                alert.show()
             }
         }
 
@@ -68,17 +84,18 @@ class MapsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("logzzz", "onCV")
+
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
+    @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val saveFab = view.findViewById<View>(R.id.save_fab)
-//        val collectionFab = view.findViewById<View>(R.id.collection_fab)
-
-
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        val viewModel: MarkerViewModel by viewModels()
+
 
         lifecycle.coroutineScope.launchWhenCreated {
             googleMap = mapFragment.awaitMap().apply {
@@ -87,11 +104,15 @@ class MapsFragment : Fragment() {
 
                 uiSettings.apply {
                     isZoomControlsEnabled = true
+                    isCompassEnabled = true
+                    isIndoorLevelPickerEnabled = true
+                    isMapToolbarEnabled = true
                     setAllGesturesEnabled(true)
                 }
             }
 
             when {
+                // 1. Проверяем есть ли уже права
                 ContextCompat.checkSelfPermission(
                     requireContext(),
                     Manifest.permission.ACCESS_FINE_LOCATION
@@ -104,142 +125,151 @@ class MapsFragment : Fragment() {
                     val fusedLocationProviderClient = LocationServices
                         .getFusedLocationProviderClient(requireActivity())
 
-                    fusedLocationProviderClient.lastLocation.addOnSuccessListener {
-                        println(it)
-                    }
+                    fusedLocationProviderClient.lastLocation.addOnSuccessListener { println(it) }
                 }
+                // 2. Должны показать обоснование необходимости прав
                 shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
-                    Toast.makeText(requireContext(), R.string.permission_requied, Toast.LENGTH_LONG)
-                        .show()
+                    val dialogBuilder = AlertDialog.Builder(requireActivity())
+                    dialogBuilder.setMessage(R.string.access_dialog)
+                        // if the dialog is cancelable
+                        .setCancelable(false)
+                        .setPositiveButton(
+                            R.string.ok,
+                            DialogInterface.OnClickListener { dialog, id ->
+                                dialog.dismiss()
+                            })
+                    val alert = dialogBuilder.create()
+                    alert.setTitle(R.string.need_for_permission)
+                    alert.show()
                 }
+                // 3. Запрашиваем права
                 else -> {
                     requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                 }
             }
 
-            val target = LatLng(55.751999, 37.617734)
-            val userTarget = arguments?.coordinatesData?.let { LatLng(it.first(), it.last()) }
             val markerManager = MarkerManager(googleMap)
-            val collection: MarkerManager.Collection = markerManager.newCollection()
+            mapFragment.getMapAsync(OnMapReadyCallback {
+                it.setOnMapClickListener { point ->
+                    val collection: MarkerManager.Collection = markerManager.newCollection().apply {
+                        addMarker {
+                            position(point)
+                            title("Ш-${point.latitude}")
+                            snippet("-")
+                            add(title!!, point)
+                            viewModel.save()
+                        }.apply {
+                            showInfoWindow()
+                            tag = dateText
+                            Toast.makeText(
+                                requireContext(), R.string.add_marker, Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        with(googleMap) {
+                            animateCamera(CameraUpdateFactory.newLatLngZoom(point, 15f))
+                            cameraPosition
+                        }
+                    }
 
-            collection.setOnMarkerClickListener { marker ->
-                marker.showInfoWindow()
-                true
-            }
+                    collection.setOnMarkerClickListener { marker ->
+                        val dialogBuilder = AlertDialog.Builder(requireActivity())
+                        dialogBuilder.setTitle(R.string.change_marker)
+                        dialogBuilder.setMessage(R.string.do_marker)
+                        dialogBuilder.setPositiveButton(R.string.REMOVE) { dialog, which ->
+                            marker.remove()
+                            viewModel.removeMarker(point)
+                            Toast.makeText(
+                                requireContext(), R.string.remove_marker, Toast.LENGTH_SHORT
+                            ).show()
+                        }
 
-//            collection.setOnInfoWindowLongClickListener { marker ->
-//                val tag = marker.tag as Marker
-//                val dialog = EditedMarkerFragment()
-//                dialog.arguments = Bundle().apply {
-//                    editArg =
-//                        getString(R.string.new_marker),
-//                        marker.title
-//                    .toString()
-//                    markerData = tag
-//                    viewModel.edit(tag)
-//                }
-////                dialog.show(childFragmentManager, "EditMarkerFragment")
-//            }
+                        dialogBuilder.setNegativeButton(R.string.CHANGER) { dialog, which ->
 
-//            googleMap.setOnMapLongClickListener { marker ->
-//                addMarker(collection, marker, getString(R.string.new_marker))
-//                saveFab.visibility = View.VISIBLE
-//
-//                saveFab.setOnClickListener {
-//                    val dialog = AddMarkerFragment()
-//                    dialog.arguments = Bundle().apply {
-//                        markerArg = Marker(
-//                            title = getString(R.string.want_to_visit),
-//                            latitude = marker.latitude,
-//                            longitude = marker.longitude
-//                        )
-//                    }
-//                    dialog.show(childFragmentManager, "AddMarkerFragment")
-//                }
-//            }
+                            newSnippetLauncher.launch()
 
-//            collectionFab.setOnClickListener {
-//                findNavController().navigate(
-//                    R.id.action_mapsFragment_to_markersListFragment
-//                )
-            }
+
+//                            val bundle: Bundle? = arguments
+//                            val newSnippet = bundle?.getString("message")
+
+
+//                            val intent = arguments
+//                            val newSnippet = if (savedInstanceState != null) {
+//                                val extras = intent?.getBundle("message")
+//                                extras?.getString("message")
+//                            } else {
+//                                savedInstanceState?.getString("message", "555555") as String?
+//                            }
+//                            marker.snippet = newSnippet.toString()
+
+//                            marker.snippet = newSnippet
+
+                            marker.showInfoWindow()
+                        }
+
+                        dialogBuilder.setNeutralButton(R.string.CANCEL) { dialog, _ ->
+                            marker.showInfoWindow()
+//                            dialog.dismiss()
+                        }
+
+                        val dialog: AlertDialog = dialogBuilder.create()
+                        dialog.show()
+                        true
+                    }
+                }
+            })
 
 //            googleMap.awaitAnimateCamera(
 //                CameraUpdateFactory.newCameraPosition(
 //                    cameraPosition {
-//                        if (userTarget != null) {
-//                            target(userTarget)
-//                        } else {
-//                            target(target)
-//                        }
+//                        target(target)
 //                        zoom(15F)
 //                    }
-//                )
-//            )
-
-//            viewModel.data.collect { data ->
-//                try {
-//                    collection.clear()
-//                    data.forEach { marker ->
-//                        addMarker(
-//                            collection,
-//                            LatLng(marker.latitude, marker.longitude),
-//                            marker.title
-//                        )
-//                        collection.markers.map {
-//                            if (it.tag == null) it.tag = marker
-//                        }
-//                    }
-//                } catch (e: Exception) {
-//                    e.printStackTrace()
-//                    viewModel.loadMarkerExceptionEvent.observe(viewLifecycleOwner, {
-//                        val activity = activity ?: return@observe
-//                        val dialog = activity.let { activity ->
-//                            AlertDialog.Builder(activity)
-//                        }
-//
-//                        dialog.setMessage(R.string.error_loading)
-//                            .setPositiveButton(R.string.dialog_positive_button) { dialog, _ ->
-//                                dialog.dismiss()
-//                            }
-//                            .setNegativeButton(R.string.dialog_negative_button) { dialog, _ ->
-//                                dialog.cancel()
-//                            }
-//                            .create()
-//                            .show()
-//                    })
-//                }
-//            }
+//                ))
         }
+
+
     }
 
-//    companion object {
-//        private const val MARKER_KEY = "MARKER_KEY"
-//        var Bundle.markerArg: Marker?
-//            set(value) = putParcelable(MARKER_KEY, value)
-//            get() = getParcelable(MARKER_KEY)
-//
-//        private const val EDIT_KEY = "EDIT_KEY"
-//        var Bundle.editArg: ArrayList<String>?
-//            set(value) = putStringArrayList(EDIT_KEY, value)
-//            get() = getStringArrayList(EDIT_KEY)
-//
-//        private const val COORDS_KEY = "COORDS_KEY"
-//        var Bundle.coordsArg: DoubleArray?
-//            set(value) = putDoubleArray(COORDS_KEY, value)
-//            get() = getDoubleArray(COORDS_KEY)
-//    }
-//}
 
-private fun addMarker(collection: MarkerManager.Collection, latLng: LatLng, title: String) {
-    collection.addMarker {
-        position(latLng)
-        icon(BitmapDescriptorFactory.fromResource(R.drawable.flag))
-        title(title)
-        snippet("$latLng")
+    private val _markers: MutableMap<String, MarkerOptions> =
+        ConcurrentHashMap<String, MarkerOptions>()
+
+    private fun add(name: String, latLong: LatLng) {
+        val marker = MarkerOptions().position(latLong).title(name)
+        _markers[name] = marker
+    }
+
+//    private fun remove(latLong: LatLng): Boolean {
+//        _markers.remove(latLong)
+//        googleMap.clear()
+//        for (item in _markers.values) {
+//            googleMap.addMarker(item)
+//        }
+//        return true
+//    }
+
+    var currentDate: Date = Date()
+    var dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+    var dateText: String = dateFormat.format(currentDate)
+
+    var timeFormat: DateFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+    var timeText: String = timeFormat.format(currentDate)
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("logzzz", "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("logzzz", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("logzzz", "onStop")
     }
 }
-
 
 
 
