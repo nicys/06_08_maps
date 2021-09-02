@@ -5,56 +5,90 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
+import ru.netology.nmedia.databinding.FragmentEditedMarkerBinding
+import ru.netology.nmedia.ui.dto.Marker
+import ru.netology.nmedia.ui.util.AndroidUtils.hideKeyboard
+import ru.netology.nmedia.ui.util.AndroidUtils.showKeyboard
+import ru.netology.nmedia.ui.util.CoordinatesArg
+import ru.netology.nmedia.ui.util.MarkerArg
+import ru.netology.nmedia.ui.util.StringArg
+import ru.netology.nmedia.ui.viewmodel.MarkerViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [EditedMarkerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EditedMarkerFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    companion object {
+        var Bundle.stringData: String? by StringArg
+        var Bundle.markerData: Marker? by MarkerArg
+        var Bundle.coordinatesData: DoubleArray? by CoordinatesArg
     }
+
+    private val viewModel: MarkerViewModel by viewModels(
+        ownerProducer = ::requireParentFragment)
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edited_marker, container, false)
+
+        val binding = FragmentEditedMarkerBinding.inflate(inflater, container, false)
+//        arguments?.editArg?.let { list ->
+//            with(binding) {
+//                helpText.text = list.first()
+//                descriptionText.setText(list.last())
+//            }
+//        }
+
+        binding.editMarker.requestFocus()
+        showKeyboard(binding.root)
+
+        arguments?.markerData?.let {
+            binding.save.setOnClickListener {
+                when (binding.helpText.text) {
+                    getString(R.string.new_marker) ->
+                        viewModel.changeTitle(R.id.description_text.toString())
+//                    getString(R.string.latitude) ->
+//                        viewModel.changeLatitude(R.id.description_text.toString().toDouble())
+//                    getString(R.string.longitude) ->
+//                        viewModel.changeLongitude(R.id.description_text.toString().toDouble())
+                }
+                viewModel.save()
+                hideKeyboard(requireView())
+//                dismiss()
+                findNavController().navigateUp()
+            }
+        }
+
+        binding.cancel.setOnClickListener {
+            findNavController().navigateUp()
+
+//            val activity = activity ?: return@setOnClickListener
+//            val dialog = activity.let { activity ->
+//                AlertDialog.Builder(activity)
+//            }
+//
+//            dialog.setMessage(R.string.cancellation)
+//                .setPositiveButton(R.string.dialog_positive_button) { _, _ ->
+////                    dismiss()
+//                    hideKeyboard(requireView())
+//                    findNavController().navigateUp()
+//                }
+//                .setNegativeButton(R.string.dialog_negative_button) { _, _ ->
+//                    isCancelable
+//                }
+//                .create()
+//                .show()
+        }
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment EditedMarkerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EditedMarkerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        val width = (resources.displayMetrics.widthPixels)
+//        dialog?.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+//    }
 }

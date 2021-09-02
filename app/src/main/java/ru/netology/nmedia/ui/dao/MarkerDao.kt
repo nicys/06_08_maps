@@ -1,3 +1,5 @@
+@file:Suppress("AndroidUnresolvedRoomSqlReference")
+
 package ru.netology.nmedia.ui.dao
 
 import androidx.room.Dao

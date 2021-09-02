@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="128dp"
-        app:backgroundTint="@color/fab_color"
+        app:backgroundTint="@color/colorPrimary"
         android:clickable="true"
         android:contentDescription="@string/list_of_markers"
         app:layout_constraintBottom_toBottomOf="parent"

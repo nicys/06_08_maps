@@ -14,6 +14,7 @@
     <string name="REMOVE">УДАЛИТЬ</string>
     <string name="CANCEL">ОТМЕНА</string>
     <string name="CHANGER">ИЗМЕНИТЬ</string>
+    <string name="SAVE">СОХРАНИТЬ</string>
     <string name="change_mark">зменить описание маркера</string>
     <string name="enternamemarker">Введите имя маркера</string>
     <string name="hint">Введите описание маркера:</string>
@@ -27,4 +28,7 @@
     <string name="popup_menu_edit">Изменить</string>
     <string name="popup_menu_remove">Удалить</string>
     <string name="my_places">Мои места</string>
+
+    <string name="permission_requied">Permission is required for correct functioning</string>
+    <string name="permission_unavailable">Permission unavailable</string>
 </resources>

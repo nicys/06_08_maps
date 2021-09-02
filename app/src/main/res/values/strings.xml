@@ -13,6 +13,7 @@
     <string name="REMOVE">REMOVE</string>
     <string name="CANCEL">CANCEL</string>
     <string name="CHANGER">CHANGE</string>
+    <string name="SAVE">SAVE</string>
     <string name="change_mark">changer snippet of marker</string>
     <string name="enternamemarker">Enter name of marker</string>
     <string name="hint">Enter a description of the marker:</string>
@@ -26,4 +27,7 @@
     <string name="popup_menu_edit">Edit</string>
     <string name="popup_menu_remove">Remove</string>
     <string name="my_places">My places</string>
+
+    <string name="permission_requied">Permission is required for correct functioning</string>
+    <string name="permission_unavailable">Permission unavailable</string>
 </resources>
