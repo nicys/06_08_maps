@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="128dp"
-        app:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@color/colorPrimary2"
         android:clickable="true"
         android:contentDescription="@string/list_of_markers"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,9 +38,9 @@
         android:contentDescription="@string/list_of_markers"
         android:focusable="true"
         android:visibility="gone"
-        app:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_baseline_format_list_bulleted_24" />
+        app:srcCompat="@drawable/ic_baseline_add_location_alt_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
