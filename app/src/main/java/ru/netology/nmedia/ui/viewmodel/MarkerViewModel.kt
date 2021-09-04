@@ -5,18 +5,15 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.maps.model.LatLng
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.netology.nmedia.ui.db.AppDb
 import ru.netology.nmedia.ui.dto.Marker
-import ru.netology.nmedia.ui.model.FeedModel
 import ru.netology.nmedia.ui.repository.MarkerRepository
 import ru.netology.nmedia.ui.repository.MarkerRepositoryImpl
+import ru.netology.nmedia.ui.util.SingleLiveEvent
 
-private val empty = Marker()
+private var empty = Marker()
 
 class MarkerViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: MarkerRepository =
@@ -28,6 +25,18 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
         .catch { e: Throwable ->
             e.printStackTrace()
         }
+
+    private val _markerCreatedEvent = SingleLiveEvent<Unit>()
+    val markerCreatedEvent: LiveData<Unit>
+        get() = _markerCreatedEvent
+
+    private val _loadMarkerExceptionEvent = SingleLiveEvent<Unit>()
+    val loadMarkerExceptionEvent: LiveData<Unit>
+        get() = _loadMarkerExceptionEvent
+
+    private val _saveMarkerExceptionEvent = SingleLiveEvent<Unit>()
+    val saveMarkerExceptionEvent: LiveData<Unit>
+        get() = _saveMarkerExceptionEvent
 
     private val edited = MutableLiveData(empty)
 
@@ -47,6 +56,14 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
         }
         edited.value = edited.value?.copy(
             title = text
+        )
+    }
+
+    fun changeData(title: String, latitude: Double, longitude: Double) {
+        empty = empty.copy(
+            title = title,
+            latitude = latitude,
+            longitude = longitude
         )
     }
 

@@ -90,7 +90,7 @@ class MapsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val saveFab = view.findViewById<View>(R.id.save_fab)
+        val saveFab = view.findViewById<View>(R.id.fabSave)
         val fabListMarkers = view.findViewById<View>(R.id.fabListMarkers)
 
 
@@ -154,19 +154,19 @@ class MapsFragment : Fragment() {
             }
 
             googleMap.setOnMapLongClickListener { marker ->
-                addMarkers(collection, marker, getString(R.string.SAVE))
-//                saveFab.visibility = View.VISIBLE
-//                saveFab.setOnClickListener {
-//                    val dialog = AddMarkerFragment()
-//                    dialog.arguments = Bundle().apply {
-//                        markerData = Marker(
-//                            title = getString(R.string.want_to_visit),
-//                            latitude = marker.latitude,
-//                            longitude = marker.longitude
-//                        )
-//                    }
-//                    dialog.show(childFragmentManager, "AddMarkerFragment")
-//                }
+                addMarkers(collection, marker, getString(R.string.new_marker_title))
+                saveFab.visibility = View.VISIBLE
+                saveFab.setOnClickListener {
+                    val dialog = AddMarkerFragment()
+                    dialog.arguments = Bundle().apply {
+                        markerData = Marker(
+                            title = getString(R.string.want_to_visit),
+                            latitude = marker.latitude,
+                            longitude = marker.longitude
+                        )
+                    }
+                    dialog.show(childFragmentManager, "AddMarkerFragment")
+                }
             }
 
             fabListMarkers.setOnClickListener {

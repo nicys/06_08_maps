@@ -17,4 +17,11 @@
     <string name="kremlin">The Moscow Kremlin</string>
     <string name="marker">Marker</string>
     <string name="your_palaces">Your places</string>
+    <string name="list_of_markers">List of markers</string>
+    <string name="popup_menu_edit">Edit</string>
+    <string name="popup_menu_remove">Remove</string>
+    <string name="new_marker">New marker</string>
+    <string name="SAVE">SAVE</string>
+    <string name="CANCEL">CANCEL</string>
+    <string name="my_places">My places</string>
 </resources>

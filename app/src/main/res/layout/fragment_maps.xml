@@ -28,4 +28,18 @@
         app:srcCompat="@drawable/ic_baseline_format_list_bulleted_24"
         android:focusable="true" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="128dp"
+        android:clickable="true"
+        android:contentDescription="@string/list_of_markers"
+        android:focusable="true"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_baseline_format_list_bulleted_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

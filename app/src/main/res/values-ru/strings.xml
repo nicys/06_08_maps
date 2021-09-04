@@ -17,4 +17,11 @@
     <string name="kremlin">Московский Кремль</string>
     <string name="marker">Маркер</string>
     <string name="your_palaces">Сохраненное</string>
+    <string name="list_of_markers">List of markers</string>
+    <string name="popup_menu_edit">Изменить</string>
+    <string name="popup_menu_remove">Удалить</string>
+    <string name="new_marker">Новый маркет</string>
+    <string name="SAVE">СОХРАНИТЬ</string>
+    <string name="CANCEL">ОТМЕНИТЬ</string>
+    <string name="my_places">Мои места</string>
 </resources>

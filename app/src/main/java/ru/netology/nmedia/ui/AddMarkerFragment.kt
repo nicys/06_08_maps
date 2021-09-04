@@ -5,56 +5,95 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
+import ru.netology.nmedia.databinding.FragmentAddMarkerBinding
+import ru.netology.nmedia.ui.MarkersListFragment.Companion.markerData
+import ru.netology.nmedia.ui.viewmodel.MarkerViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class AddMarkerFragment : DialogFragment() {
+    private val viewModel: MarkerViewModel by viewModels(
+        ownerProducer = ::requireParentFragment
+    )
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AddMarkerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class AddMarkerFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        val binding = FragmentAddMarkerBinding.inflate(inflater, container, false)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        arguments?.markerData?.let { marker ->
+            with(binding) {
+                setMarkerTitle.setText(marker.title)
+                setLatitude.setText(marker.latitude.toString())
+                setSetLongitude.setText(marker.longitude.toString())
+
+                saveButton.setOnClickListener {
+                    viewModel.changeData(
+                        setMarkerTitle.text.toString(),
+                        setLatitude.text.toString().toDouble(),
+                        setSetLongitude.text.toString().toDouble()
+                    )
+                    viewModel.save()
+                    markerCreatedObserver()
+
+                }
+            }
+        }
+
+        binding.cancelButton.setOnClickListener {
+            val activity = activity ?: return@setOnClickListener
+            val dialog = activity.let { activity ->
+                AlertDialog.Builder(activity)
+            }
+
+            dialog.setMessage(R.string.cancellation)
+                .setPositiveButton(R.string.dialog_positive_button) { dialog, _ ->
+                    dismiss()
+                }
+                .setNegativeButton(R.string.dialog_negative_button) { dialog, _ ->
+                    isCancelable
+                }
+                .create()
+                .show()
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
+
+        return binding.root
+    }
+
+    private fun markerCreatedObserver() {
+        try {
+            viewModel.markerCreatedEvent.observe(viewLifecycleOwner, {
+                dismiss()
+            })
+        } catch (e: Exception) {
+            e.printStackTrace()
+            viewModel.saveMarkerExceptionEvent.observe(viewLifecycleOwner, {
+                val activity = activity ?: return@observe
+                val dialog = activity.let { activity ->
+                    AlertDialog.Builder(activity)
+                }
+                dialog.setMessage(R.string.error_saving)
+                    .setPositiveButton(R.string.dialog_positive_button) { dialog, _ ->
+                        dialog.cancel()
+                    }
+                    .create()
+                    .show()
+            })
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_marker, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddMarkerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddMarkerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onStart() {
+        super.onStart()
+        val width = (resources.displayMetrics.widthPixels * 0.95).toInt()
+        dialog?.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 }
