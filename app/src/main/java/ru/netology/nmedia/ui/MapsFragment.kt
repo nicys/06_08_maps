@@ -162,7 +162,7 @@ class MapsFragment : Fragment() {
 //                saveFab.setOnClickListener {
 //                    val dialog = AddMarkerFragment()
 //                    dialog.arguments = Bundle().apply {
-//                        markerArg = Marker(
+//                        markerData = Marker(
 //                            title = getString(R.string.want_to_visit),
 //                            latitude = marker.latitude,
 //                            longitude = marker.longitude
