@@ -21,7 +21,7 @@
     <string name="popup_menu_edit">Изменить</string>
     <string name="popup_menu_remove">Удалить</string>
     <string name="new_marker">Новый маркет</string>
-    <string name="SAVE">СОХРАНИТЬ</string>
-    <string name="CANCEL">ОТМЕНИТЬ</string>
+    <string name="SAVE">SAVE</string>
+    <string name="CANCEL">CANCEL</string>
     <string name="my_places">Мои места</string>
 </resources>

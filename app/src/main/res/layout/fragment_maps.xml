@@ -37,6 +37,7 @@
         android:clickable="true"
         android:contentDescription="@string/list_of_markers"
         android:focusable="true"
+        android:visibility="gone"
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
