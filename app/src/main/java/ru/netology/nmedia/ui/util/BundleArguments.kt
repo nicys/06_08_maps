@@ -35,12 +35,12 @@ object CoordinatesArg : ReadWriteProperty<Bundle, DoubleArray?> {
     }
 }
 
-object EditedArg : ReadWriteProperty<Bundle, DoubleArray?> {
-    override fun setValue(thisRef: Bundle, property: KProperty<*>, value: DoubleArray?) {
-        thisRef.putDoubleArray(property.name, value)
+object EditedArg : ReadWriteProperty<Bundle, ArrayList<String>?> {
+    override fun setValue(thisRef: Bundle, property: KProperty<*>, value: ArrayList<String>?) {
+        thisRef.putStringArrayList(property.name, value)
     }
 
-    override fun getValue(thisRef: Bundle, property: KProperty<*>): DoubleArray? {
-        return thisRef.getDoubleArray(property.name)
+    override fun getValue(thisRef: Bundle, property: KProperty<*>): ArrayList<String>? {
+        return thisRef.getStringArrayList(property.name)
     }
 }

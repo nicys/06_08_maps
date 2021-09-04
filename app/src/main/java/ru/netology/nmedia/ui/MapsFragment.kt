@@ -32,12 +32,14 @@ import com.google.maps.android.ktx.awaitMap
 import com.google.maps.android.ktx.model.cameraPosition
 import com.google.maps.android.ktx.utils.collection.addMarker
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import ru.netology.nmedia.R
 import ru.netology.nmedia.ui.MarkersListFragment.Companion.coordinatesData
 import ru.netology.nmedia.ui.MarkersListFragment.Companion.markerData
 import ru.netology.nmedia.ui.MarkersListFragment.Companion.stringData
 import ru.netology.nmedia.ui.dto.Marker
 import ru.netology.nmedia.ui.util.CoordinatesArg
+import ru.netology.nmedia.ui.util.EditedArg
 import ru.netology.nmedia.ui.util.MarkerArg
 import ru.netology.nmedia.ui.util.StringArg
 import ru.netology.nmedia.ui.viewmodel.MarkerViewModel
@@ -45,15 +47,18 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
+import kotlin.collections.ArrayList
 
 class MapsFragment : Fragment() {
     private lateinit var googleMap: GoogleMap
 
-//    companion object {
-//        var Bundle.stringData: String? by StringArg
-//        var Bundle.markerData: Marker? by MarkerArg
-//        var Bundle.coordinatesData: DoubleArray? by CoordinatesArg
-//    }
+    companion object {
+        var Bundle.stringData: String? by StringArg
+        var Bundle.markerData: Marker? by MarkerArg
+        var Bundle.coordinatesData: DoubleArray? by CoordinatesArg
+//        var Bundle.editedData: ArrayList<String> by EditedArg
+
+    }
 
     private val viewModel: MarkerViewModel by viewModels(
         ownerProducer = ::requireParentFragment
@@ -86,7 +91,7 @@ class MapsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 //        val saveFab = view.findViewById<View>(R.id.save_fab)
-//        val collectionFab = view.findViewById<View>(R.id.collection_fab)
+        val fabListMarkers = view.findViewById<View>(R.id.fabListMarkers)
 
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
@@ -129,7 +134,7 @@ class MapsFragment : Fragment() {
             }
 
             val target = LatLng(55.751999, 37.617734)
-            val userTarget = arguments?.coordsArg?.let { LatLng(it.first(), it.last()) }
+            val userTarget = arguments?.coordinatesData?.let { LatLng(it.first(), it.last()) }
             val markerManager = MarkerManager(googleMap)
             val collection: MarkerManager.Collection = markerManager.newCollection()
 
@@ -145,17 +150,15 @@ class MapsFragment : Fragment() {
                     stringData =
 
                         marker.title
-                    
-                    markerArg = tag
+
+                    markerData = tag
                     viewModel.edit(tag)
                 }
-//                dialog.show(childFragmentManager, "EditMarkerFragment")
             }
 
             googleMap.setOnMapLongClickListener { marker ->
-                addMarker(collection, marker, getString(R.string.SAVE))
+                addMarkers(collection, marker, getString(R.string.SAVE))
 //                saveFab.visibility = View.VISIBLE
-
 //                saveFab.setOnClickListener {
 //                    val dialog = AddMarkerFragment()
 //                    dialog.arguments = Bundle().apply {
@@ -169,11 +172,11 @@ class MapsFragment : Fragment() {
 //                }
             }
 
-//            collectionFab.setOnClickListener {
-//                findNavController().navigate(
-//                    R.id.action_mapsFragment_to_markersListFragment
-//                )
-//            }
+            fabListMarkers.setOnClickListener {
+                findNavController().navigate(
+                    R.id.action_mapsFragment2_to_markersListFragment
+                )
+            }
 
             googleMap.awaitAnimateCamera(
                 CameraUpdateFactory.newCameraPosition(
@@ -188,68 +191,39 @@ class MapsFragment : Fragment() {
                 )
             )
 
-//            viewModel.data.collect { data ->
-//                try {
-//                    collection.clear()
-//                    data.forEach { marker ->
-//                        addMarker(
-//                            collection,
-//                            LatLng(marker.latitude, marker.longitude),
-//                            marker.title
-//                        )
-//                        collection.markers.map {
-//                            if (it.tag == null) it.tag = marker
-//                        }
-//                    }
-//                } catch (e: Exception) {
-//                    e.printStackTrace()
-//                    viewModel.loadMarkerExceptionEvent.observe(viewLifecycleOwner, {
-//                        val activity = activity ?: return@observe
-//                        val dialog = activity.let { activity ->
-//                            AlertDialog.Builder(activity)
-//                        }
-//
-//                        dialog.setMessage(R.string.error_loading)
-//                            .setPositiveButton(R.string.dialog_positive_button) { dialog, _ ->
-//                                dialog.dismiss()
-//                            }
-//                            .setNegativeButton(R.string.dialog_negative_button) { dialog, _ ->
-//                                dialog.cancel()
-//                            }
-//                            .create()
-//                            .show()
-//                    })
-//                }
-//            }
+
+            viewModel.data.collect { data ->
+                try {
+                    collection.clear()
+                    data.forEach { marker ->
+                        addMarkers(
+                            collection,
+                            LatLng(marker.latitude, marker.longitude),
+                            marker.title
+                        )
+                        collection.markers.map {
+                            if (it.tag == null) it.tag = marker
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
         }
-    }
-
-    companion object {
-        private const val MARKER_KEY = "MARKER_KEY"
-        var Bundle.markerArg: Marker?
-            set(value) = putParcelable(MARKER_KEY, value)
-            get() = getParcelable(MARKER_KEY)
-
-        private const val EDIT_KEY = "EDIT_KEY"
-        var Bundle.editArg: ArrayList<String>?
-            set(value) = putStringArrayList(EDIT_KEY, value)
-            get() = getStringArrayList(EDIT_KEY)
-
-        private const val COORDS_KEY = "COORDS_KEY"
-        var Bundle.coordsArg: DoubleArray?
-            set(value) = putDoubleArray(COORDS_KEY, value)
-            get() = getDoubleArray(COORDS_KEY)
     }
 }
 
-private fun addMarker(collection: MarkerManager.Collection, latLng: LatLng, title: String) {
+fun addMarkers(collection: MarkerManager.Collection, latLng: LatLng, title: String) {
     collection.addMarker {
         position(latLng)
-        icon(BitmapDescriptorFactory.fromResource(R.drawable.flag))
         title(title)
         snippet("$latLng")
     }
 }
+
+
+
+                
 
 
 
