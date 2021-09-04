@@ -9,7 +9,11 @@
         android:id="@+id/mapsFragment2"
         android:name="ru.netology.nmedia.ui.MapsFragment"
         android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment2_to_markersListFragment"
+            app:destination="@id/markersListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/markersListFragment"
         android:name="ru.netology.nmedia.ui.MarkersListFragment"
