@@ -147,10 +147,7 @@ class MapsFragment : Fragment() {
                 val tag = marker.tag as Marker
                 val dialog = EditedMarkerFragment()
                 dialog.arguments = Bundle().apply {
-                    stringData =
-
-                        marker.title
-
+                    stringData = marker.title
                     markerData = tag
                     viewModel.edit(tag)
                 }
