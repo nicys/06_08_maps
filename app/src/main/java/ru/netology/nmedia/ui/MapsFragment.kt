@@ -188,7 +188,6 @@ class MapsFragment : Fragment() {
                 )
             )
 
-
             viewModel.data.collect { data ->
                 try {
                     collection.clear()
