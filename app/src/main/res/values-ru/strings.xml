@@ -8,6 +8,7 @@
     <string name="longitude">Долгота</string>
     <string name="cancel_button">ОТМЕНА</string>
     <string name="save_button">СОХРАНИТЬ</string>
+    <string name="coordinates">КООРДИНАТЫ:</string>
     <string name="cancellation">Изменения не будут сохранены. Вы действительно хотите выйти?</string>
     <string name="dialog_negative_button">ОТМЕНА</string>
     <string name="error_saving">Сохранение не удалось. Попробуйте позднее.</string>
@@ -24,4 +25,5 @@
     <string name="SAVE">SAVE</string>
     <string name="CANCEL">CANCEL</string>
     <string name="my_places">Мои места</string>
+    <string name="edit_marker">Изменить маркер</string>
 </resources>

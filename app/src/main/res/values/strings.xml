@@ -7,6 +7,7 @@
     <string name="longitude">Longitude</string>
     <string name="cancel_button" tools:ignore="ButtonCase">CANCEL</string>
     <string name="save_button">SAVE</string>
+    <string name="coordinates">COORDINATES:</string>
     <string name="cancellation">The changes won\'t be saved, do you really want to log out?</string>
     <string name="dialog_positive_button" translatable="false">OK</string>
     <string name="dialog_negative_button" tools:ignore="ButtonCase">CANCEL</string>
@@ -24,4 +25,5 @@
     <string name="SAVE">SAVE</string>
     <string name="CANCEL">CANCEL</string>
     <string name="my_places">My places</string>
+    <string name="edit_marker">Edit marker</string>
 </resources>
