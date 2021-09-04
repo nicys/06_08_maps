@@ -14,7 +14,8 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            style="@style/Widget.MaterialComponents.Toolbar.Surface"
+            android:background="@color/colorPrimary2"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_arrow_back_24"
@@ -29,6 +30,7 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:background="@color/light_blue"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
