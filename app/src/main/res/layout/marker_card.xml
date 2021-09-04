@@ -20,41 +20,43 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp">
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp">
 
             <ImageView
                 android:id="@+id/popup_menu"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@android:color/transparent"
                 android:checkable="true"
                 android:padding="0dp"
                 android:src="@drawable/ic_more_vert_24"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:paddingBottom="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:paddingBottom="8dp"
                 android:text="@string/new_marker"
                 android:textColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@id/popup_menu"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/popup_menu"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/latitude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/latitude"
+                android:text="@string/coordinates"
+                android:textSize="18sp"
+                android:textStyle="italic"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -62,34 +64,26 @@
                 android:id="@+id/latitude_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/latitude"
+                android:textSize="8sp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/latitude"
                 app:layout_constraintTop_toBottomOf="@id/title" />
 
 
             <TextView
-                android:id="@+id/longitude"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/longitude"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/latitude" />
-
-            <TextView
                 android:id="@+id/longitude_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
                 android:text="@string/longitude"
                 android:textColor="@color/black"
-                app:layout_constraintStart_toEndOf="@id/longitude"
-                app:layout_constraintTop_toBottomOf="@id/latitude" />
+                android:textSize="8sp"
+                app:layout_constraintStart_toEndOf="@+id/latitude"
+                app:layout_constraintTop_toBottomOf="@+id/latitude_text" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
