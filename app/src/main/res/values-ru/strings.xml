@@ -29,6 +29,15 @@
     <string name="popup_menu_remove">Удалить</string>
     <string name="my_places">Мои места</string>
 
-    <string name="permission_requied">Permission is required for correct functioning</string>
     <string name="permission_unavailable">Permission unavailable</string>
+    <string name="save_button">SAVE</string>
+    <string name="cancellation">The changes won\'t be saved, do you really want to log out?</string>
+    <string name="dialog_positive_button" translatable="false">OK</string>
+    <string name="error_saving">Saving failed. Try again later.</string>
+    <string name="error_loading">Loading failed. Try again later.</string>
+    <string name="want_to_visit">Want to visit</string>
+    <string name="permission_requied">Permission is required for correct functioning</string>
+    <string name="kremlin">The Moscow Kremlin</string>
+    <string name="marker">Marker</string>
+    <string name="your_palaces">Your places</string>
 </resources>
