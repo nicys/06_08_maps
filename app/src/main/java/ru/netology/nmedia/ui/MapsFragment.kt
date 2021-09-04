@@ -153,7 +153,7 @@ class MapsFragment : Fragment() {
                 }
             }
 
-            googleMap.setOnMapLongClickListener { marker ->
+            googleMap.setOnMapClickListener { marker ->
                 addMarkers(collection, marker, getString(R.string.new_marker_title))
                 saveFab.visibility = View.VISIBLE
                 saveFab.setOnClickListener {
@@ -165,7 +165,9 @@ class MapsFragment : Fragment() {
                             longitude = marker.longitude
                         )
                     }
-                    dialog.show(childFragmentManager, "AddMarkerFragment")
+                    findNavController().navigate(
+                        R.id.action_mapsFragment2_to_addMarkerFragment
+                    )
                 }
             }
 

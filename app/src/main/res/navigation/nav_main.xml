@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mapsFragment2_to_markersListFragment"
             app:destination="@id/markersListFragment" />
+        <action
+            android:id="@+id/action_mapsFragment2_to_addMarkerFragment"
+            app:destination="@id/addMarkerFragment" />
     </fragment>
     <fragment
         android:id="@+id/markersListFragment"
@@ -31,4 +34,8 @@
         android:name="ru.netology.nmedia.ui.EditedMarkerFragment"
         android:label="fragment_edited_marker"
         tools:layout="@layout/fragment_edited_marker" />
+    <dialog
+        android:id="@+id/addMarkerFragment"
+        android:name="ru.netology.nmedia.ui.AddMarkerFragment"
+        android:label="AddMarkerFragment" />
 </navigation>

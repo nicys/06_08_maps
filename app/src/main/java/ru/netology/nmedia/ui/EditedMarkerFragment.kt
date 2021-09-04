@@ -47,14 +47,14 @@ class EditedMarkerFragment : Fragment() {
 
         arguments?.markerData?.let {
             binding.save.setOnClickListener {
-                when (binding.helpText.text) {
-                    getString(R.string.new_marker) ->
-                        viewModel.changeTitle(R.id.description_text.toString())
+//                when (binding.helpText.text) {
+//                    getString(R.string.new_marker) ->
+                        viewModel.changeTitle(R.id.set_marker_title.toString())
 //                    getString(R.string.latitude) ->
 //                        viewModel.changeLatitude(R.id.description_text.toString().toDouble())
 //                    getString(R.string.longitude) ->
 //                        viewModel.changeLongitude(R.id.description_text.toString().toDouble())
-                }
+//                }
                 viewModel.save()
                 hideKeyboard(requireView())
 //                dismiss()

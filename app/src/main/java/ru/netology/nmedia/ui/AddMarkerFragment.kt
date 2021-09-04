@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.FragmentAddMarkerBinding
 import ru.netology.nmedia.ui.MarkersListFragment.Companion.markerData
+import ru.netology.nmedia.ui.util.AndroidUtils
 import ru.netology.nmedia.ui.viewmodel.MarkerViewModel
 
 class AddMarkerFragment : DialogFragment() {
@@ -29,9 +30,11 @@ class AddMarkerFragment : DialogFragment() {
 
         arguments?.markerData?.let { marker ->
             with(binding) {
+                setMarkerTitle.requestFocus()
+                AndroidUtils.showKeyboard(requireView())
                 setMarkerTitle.setText(marker.title)
-                setLatitude.setText(marker.latitude.toString())
-                setSetLongitude.setText(marker.longitude.toString())
+                setLatitude.text = marker.latitude.toString()
+                setSetLongitude.text = marker.longitude.toString()
 
                 saveButton.setOnClickListener {
                     viewModel.changeData(
@@ -40,8 +43,8 @@ class AddMarkerFragment : DialogFragment() {
                         setSetLongitude.text.toString().toDouble()
                     )
                     viewModel.save()
+                    AndroidUtils.hideKeyboard(requireView())
                     markerCreatedObserver()
-
                 }
             }
         }
@@ -63,7 +66,7 @@ class AddMarkerFragment : DialogFragment() {
                 .show()
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
+            findNavController().navigateUp()
         }
 
         return binding.root
