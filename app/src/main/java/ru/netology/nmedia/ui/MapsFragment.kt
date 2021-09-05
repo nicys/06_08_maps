@@ -201,10 +201,3 @@ fun addMarkers(collection: MarkerManager.Collection, latLng: LatLng, title: Stri
         snippet("$latLng")
     }
 }
-
-
-
-                
-
-
-
