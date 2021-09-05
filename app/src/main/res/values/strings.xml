@@ -15,4 +15,8 @@
     <string name="my_places">My places</string>
     <string name="edit_marker">Edit marker</string>
     <string name="add_marker">Marker added</string>
+    <string name="lack_of_permission">Notification about the lack of permission.</string>
+    <string name="need_for_permission">Notification of the need for permission.</string>
+    <string name="sorry_dialog">Unfortunately, you dont have access to the maps.</string>
+    <string name="access_dialog">Your permission is required to access the maps.</string>
 </resources>
