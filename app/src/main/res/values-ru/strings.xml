@@ -2,22 +2,11 @@
 <resources>
     <string name="app_name">Maps</string>
     <string name="permission_unavailable">Отсутсвует разрешение</string>
-    <string name="add_marker_title">Добавить маркер</string>
     <string name="new_marker_title">Заголовок места</string>
     <string name="latitude">Широта</string>
     <string name="longitude">Долгота</string>
-    <string name="cancel_button">ОТМЕНА</string>
-    <string name="save_button">СОХРАНИТЬ</string>
     <string name="coordinates">КООРДИНАТЫ:</string>
-    <string name="cancellation">Изменения не будут сохранены. Вы действительно хотите выйти?</string>
-    <string name="dialog_negative_button">ОТМЕНА</string>
-    <string name="error_saving">Сохранение не удалось. Попробуйте позднее.</string>
-    <string name="error_loading">Загрузка не удалась. Попробуйте позднее.</string>
-    <string name="want_to_visit">Хочу посетить</string>
     <string name="permission_requied">Для корректной работы необходимо разрешение</string>
-    <string name="kremlin">Московский Кремль</string>
-    <string name="marker">Маркер</string>
-    <string name="your_palaces">Сохраненное</string>
     <string name="list_of_markers">List of markers</string>
     <string name="popup_menu_edit">Изменить</string>
     <string name="popup_menu_remove">Удалить</string>
