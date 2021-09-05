@@ -26,4 +26,5 @@
     <string name="CANCEL">CANCEL</string>
     <string name="my_places">My places</string>
     <string name="edit_marker">Edit marker</string>
+    <string name="add_marker">Marker added</string>
 </resources>

@@ -26,4 +26,5 @@
     <string name="CANCEL">CANCEL</string>
     <string name="my_places">Мои места</string>
     <string name="edit_marker">Изменить маркер</string>
+    <string name="add_marker">Маркер добавлен</string>
 </resources>

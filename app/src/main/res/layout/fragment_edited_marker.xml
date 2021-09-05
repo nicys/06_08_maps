@@ -6,20 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<!--    <com.google.android.material.appbar.AppBarLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-<!--        <com.google.android.material.appbar.MaterialToolbar-->
-<!--            android:id="@+id/topAppBar"-->
-<!--            style="@style/Widget.MaterialComponents.Toolbar.Surface"-->
-<!--            android:background="@color/colorPrimary2"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?attr/actionBarSize"-->
-<!--            app:title="@string/edit_marker" />-->
-<!--    </com.google.android.material.appbar.AppBarLayout>-->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Surface"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary2"
+            app:title="@string/edit_marker" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -34,28 +34,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
-
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/edit_marker"-->
-<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_marginStart="44dp"-->
-<!--            android:layout_marginTop="118dp"-->
-<!--            android:layout_marginEnd="44dp"-->
-<!--            android:gravity="center_vertical"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent">-->
-
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/set_marker_title"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="@string/new_marker_title"-->
-<!--                android:maxLines="1" />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <TextView
             android:id="@+id/coordinates"
@@ -97,20 +75,6 @@
             app:layout_constraintStart_toEndOf="@+id/coordinates"
             app:layout_constraintTop_toBottomOf="@+id/latitude_text" />
 
-<!--        <com.google.android.material.button.MaterialButton-->
-<!--            android:id="@+id/cancel"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="68dp"-->
-<!--            android:layout_marginTop="32dp"-->
-<!--            android:background="@android:color/transparent"-->
-<!--            android:text="@string/CANCEL"-->
-<!--            android:textColor="@color/colorPrimary"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/background">-->
-
-<!--        </com.google.android.material.button.MaterialButton>-->
-
         <Button
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
@@ -131,33 +95,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/background" />
 
-<!--        <com.google.android.material.button.MaterialButton-->
-<!--            android:id="@+id/save"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="32dp"-->
-<!--            android:layout_marginEnd="68dp"-->
-<!--            android:background="@android:color/transparent"-->
-<!--            android:text="@string/SAVE"-->
-<!--            android:textColor="@color/colorPrimary"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/background">-->
-
-<!--        </com.google.android.material.button.MaterialButton>-->
-
         <EditText
             android:id="@+id/edit_marker"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
             android:hint="@string/new_marker_title"
+            android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="@+id/background"
             app:layout_constraintStart_toStartOf="@+id/background"
             app:layout_constraintTop_toTopOf="@+id/background" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </FrameLayout>
