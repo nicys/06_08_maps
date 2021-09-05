@@ -19,4 +19,5 @@
     <string name="need_for_permission">Notification of the need for permission.</string>
     <string name="sorry_dialog">Unfortunately, you dont have access to the maps.</string>
     <string name="access_dialog">Your permission is required to access the maps.</string>
+    <string name="ok" translatable="false">ok</string>
 </resources>

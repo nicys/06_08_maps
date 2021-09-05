@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Maps</string>
-    <string name="permission_unavailable">Отсутсвует разрешение</string>
     <string name="new_marker_title">Заголовок места</string>
     <string name="latitude">Широта</string>
     <string name="longitude">Долгота</string>
