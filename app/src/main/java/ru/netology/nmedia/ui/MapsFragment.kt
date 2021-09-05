@@ -38,16 +38,10 @@ class MapsFragment : Fragment() {
     private lateinit var googleMap: GoogleMap
 
     companion object {
-        var Bundle.stringData: String? by StringArg
-        var Bundle.markerData: Marker? by MarkerArg
-        var Bundle.coordinatesData: DoubleArray? by CoordinatesArg
-        var Bundle.editedData: ArrayList<String>? by EditedArg
-
-    }
+        var Bundle.coordinatesData: DoubleArray? by CoordinatesArg}
 
     private val viewModel: MarkerViewModel by viewModels(
-        ownerProducer = ::requireParentFragment
-    )
+        ownerProducer = ::requireParentFragment)
 
     @SuppressLint("MissingPermission")
     private val requestPermissionLauncher =
