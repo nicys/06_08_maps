@@ -3,7 +3,6 @@ package ru.netology.nmedia.ui.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -16,14 +15,14 @@ import ru.netology.nmedia.ui.util.SingleLiveEvent
 private var empty = Marker()
 
 class MarkerViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: MarkerRepository =
-        MarkerRepositoryImpl(AppDb.getInstance(context = application).markerDao())
-
-//    val data: Flow<FeedModel> = repository.data.map(::FeedModel)
+    private val repository: MarkerRepository = MarkerRepositoryImpl(
+        AppDb.getInstance(application).markerDao()
+    )
 
     val data = repository.data
         .catch { e: Throwable ->
             e.printStackTrace()
+            _loadMarkerExceptionEvent.call()
         }
 
     private val _markerCreatedEvent = SingleLiveEvent<Unit>()
@@ -38,43 +37,19 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
     val saveMarkerExceptionEvent: LiveData<Unit>
         get() = _saveMarkerExceptionEvent
 
-    private val edited = MutableLiveData(empty)
-
     fun save() {
-        edited.value?.let {
+        empty.let {
             viewModelScope.launch {
-                repository.save(it)
+                try {
+                    repository.save(it)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    _saveMarkerExceptionEvent.call()
+                }
+                _markerCreatedEvent.call()
             }
         }
-        edited.value = empty
-    }
-
-//    fun changeTitle(title: String) {
-//        empty = empty.copy(
-//            title = title
-//        )
-//    }
-
-    fun changeTitle(title: String) {
-        val text = title.trim()
-        if (edited.value?.title == text) {
-            return
-        }
-        edited.value = edited.value?.copy(
-            title = text
-        )
-    }
-
-    fun changeLatitude(latitude: Double) {
-        empty = empty.copy(
-            latitude = latitude
-        )
-    }
-
-    fun changeLongitude(longitude: Double) {
-        empty = empty.copy(
-            longitude = longitude
-        )
+        empty = Marker()
     }
 
     fun changeData(title: String, latitude: Double, longitude: Double) {
@@ -85,19 +60,23 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
         )
     }
 
-    fun removeById(id: Int) {
-        edited.value?.let {
-            viewModelScope.launch {
-                try {
-                    repository.removeById(id)
-                } catch (e: Exception) {
-                }
-            }
-        }
-        edited.value = empty
+    fun changeTitle(title: String) {
+        empty = empty.copy(
+            title = title
+        )
     }
 
     fun edit(marker: Marker) {
-        edited.value = marker
+        empty = marker
+    }
+
+    fun removeById(id: Int) {
+        viewModelScope.launch {
+            try {
+                repository.removeById(id)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 }
