@@ -16,4 +16,8 @@
     <string name="my_places">Мои места</string>
     <string name="edit_marker">Изменить маркер</string>
     <string name="add_marker">Маркер добавлен</string>
+    <string name="lack_of_permission">Уведомление об отсутствии разрешения.</string>
+    <string name="need_for_permission">Уведомление о необходимости разрешения.</string>
+    <string name="sorry_dialog">К сожалению, у вас нет доступа к картам.</string>
+    <string name="access_dialog">Для доступа к картам необходимо ваше разрешение.</string>
 </resources>
