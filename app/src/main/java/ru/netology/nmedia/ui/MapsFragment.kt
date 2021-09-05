@@ -128,20 +128,6 @@ class MapsFragment : Fragment() {
                 true
             }
 
-//            collection.setOnInfoWindowLongClickListener { marker ->
-//                val tag = marker.tag as Marker
-//                val dialog = EditedMarkerFragment()
-//                dialog.arguments = Bundle().apply {
-////                    editedData = arrayListOf(
-////                        getString(R.string.new_marker_title),
-////                        marker.title
-////                    )
-//                    markerData = tag
-//                    viewModel.edit(tag)
-//                }
-//                findNavController().navigate(R.id.action_mapsFragment2_to_editedMarkerFragment)
-//            }
-
             googleMap.setOnMapClickListener { marker ->
                 addMarkers(collection, marker, getString(R.string.new_marker_title))
                 Toast.makeText(

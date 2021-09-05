@@ -44,7 +44,7 @@ class EditedMarkerFragment : Fragment() {
             with(binding) {
                 editMarker.setText(it.title)
                 save.setOnClickListener {
-                    val editedTitle = editMarker.text.toString().trim()
+                    val editedTitle = editMarker.text.toString().capitalize().trim()
                     viewModel.changeTitle(editedTitle)
                     viewModel.save()
                     hideKeyboard(requireView())
