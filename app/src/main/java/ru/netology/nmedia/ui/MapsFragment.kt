@@ -155,20 +155,29 @@ class MapsFragment : Fragment() {
 
             googleMap.setOnMapClickListener { marker ->
                 addMarkers(collection, marker, getString(R.string.new_marker_title))
-                saveFab.visibility = View.VISIBLE
-                saveFab.setOnClickListener {
-                    val dialog = AddMarkerFragment()
-                    dialog.arguments = Bundle().apply {
-                        markerData = Marker(
-                            title = getString(R.string.want_to_visit),
-                            latitude = marker.latitude,
-                            longitude = marker.longitude
-                        )
-                    }
-                    findNavController().navigate(
-                        R.id.action_mapsFragment2_to_addMarkerFragment
-                    )
-                }
+//                Toast.makeText(
+//                    requireContext(), R.string.add_marker, Toast.LENGTH_SHORT
+//                ).show()
+                viewModel.changeData(
+                    title = getString(R.string.want_to_visit),
+                    latitude = marker.latitude,
+                    longitude = marker.longitude
+                )
+                viewModel.save()
+//                saveFab.visibility = View.VISIBLE
+//                saveFab.setOnClickListener {
+//                    val dialog = AddMarkerFragment()
+//                    dialog.arguments = Bundle().apply {
+//                        markerData = Marker(
+//                            title = getString(R.string.want_to_visit),
+//                            latitude = marker.latitude,
+//                            longitude = marker.longitude
+//                        )
+//                    }
+//                    findNavController().navigate(
+//                        R.id.action_mapsFragment2_to_addMarkerFragment
+//                    )
+//                }
             }
 
             fabListMarkers.setOnClickListener {
