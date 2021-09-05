@@ -41,13 +41,17 @@ class EditedMarkerFragment : Fragment() {
         showKeyboard(binding.root)
 
         arguments?.markerData?.let {
-            binding.save.setOnClickListener {
-                val editedTitle = binding.editMarker.text.toString().trim()
-                viewModel.changeTitle(editedTitle)
-                viewModel.save()
-                hideKeyboard(requireView())
-                findNavController().navigateUp()
+            with(binding) {
+                editMarker.setText(it.title)
+                save.setOnClickListener {
+                    val editedTitle = editMarker.text.toString().trim()
+                    viewModel.changeTitle(editedTitle)
+                    viewModel.save()
+                    hideKeyboard(requireView())
+                    findNavController().navigateUp()
+                }
             }
+
         }
 
         binding.cancel.setOnClickListener {
