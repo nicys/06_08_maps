@@ -81,10 +81,7 @@ class MapsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val saveFab = view.findViewById<View>(R.id.fabSave)
         val fabListMarkers = view.findViewById<View>(R.id.fabListMarkers)
-
-
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
 
         lifecycle.coroutineScope.launchWhenCreated {
@@ -94,6 +91,9 @@ class MapsFragment : Fragment() {
 
                 uiSettings.apply {
                     isZoomControlsEnabled = true
+                    isCompassEnabled = true
+                    isIndoorLevelPickerEnabled = true
+                    isMapToolbarEnabled = true
                     setAllGesturesEnabled(true)
                 }
             }
@@ -111,13 +111,20 @@ class MapsFragment : Fragment() {
                     val fusedLocationProviderClient = LocationServices
                         .getFusedLocationProviderClient(requireActivity())
 
-                    fusedLocationProviderClient.lastLocation.addOnSuccessListener {
-                        println(it)
-                    }
+                    fusedLocationProviderClient.lastLocation.addOnSuccessListener { println(it) }
                 }
                 shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
-                    Toast.makeText(requireContext(), R.string.permission_requied, Toast.LENGTH_LONG)
-                        .show()
+                    val dialogBuilder = AlertDialog.Builder(requireActivity())
+                    dialogBuilder.setMessage(R.string.access_dialog)
+                        .setCancelable(false)
+                        .setPositiveButton(
+                            R.string.ok
+                        ) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                    val alert = dialogBuilder.create()
+                    alert.setTitle(R.string.need_for_permission)
+                    alert.show()
                 }
                 else -> {
                     requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
