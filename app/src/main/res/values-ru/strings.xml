@@ -19,4 +19,5 @@
     <string name="need_for_permission">Уведомление о необходимости разрешения.</string>
     <string name="sorry_dialog">К сожалению, у вас нет доступа к картам.</string>
     <string name="access_dialog">Для доступа к картам необходимо ваше разрешение.</string>
+    <string name="ok">ok</string>
 </resources>
