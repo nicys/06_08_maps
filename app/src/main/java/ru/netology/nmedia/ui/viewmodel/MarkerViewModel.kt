@@ -49,6 +49,12 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
         edited.value = empty
     }
 
+//    fun changeTitle(title: String) {
+//        empty = empty.copy(
+//            title = title
+//        )
+//    }
+
     fun changeTitle(title: String) {
         val text = title.trim()
         if (edited.value?.title == text) {
@@ -56,6 +62,18 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
         }
         edited.value = edited.value?.copy(
             title = text
+        )
+    }
+
+    fun changeLatitude(latitude: Double) {
+        empty = empty.copy(
+            latitude = latitude
+        )
+    }
+
+    fun changeLongitude(longitude: Double) {
+        empty = empty.copy(
+            longitude = longitude
         )
     }
 

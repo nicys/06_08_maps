@@ -26,7 +26,8 @@ class EditedMarkerFragment : Fragment() {
     }
 
     private val viewModel: MarkerViewModel by viewModels(
-        ownerProducer = ::requireParentFragment)
+        ownerProducer = ::requireParentFragment
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,52 +36,21 @@ class EditedMarkerFragment : Fragment() {
     ): View? {
 
         val binding = FragmentEditedMarkerBinding.inflate(inflater, container, false)
-//        arguments?.editArg?.let { list ->
-//            with(binding) {
-//                helpText.text = list.first()
-//                descriptionText.setText(list.last())
-//            }
-//        }
 
         binding.editMarker.requestFocus()
         showKeyboard(binding.root)
 
         arguments?.markerData?.let {
             binding.save.setOnClickListener {
-//                when (binding.helpText.text) {
-//                    getString(R.string.new_marker) ->
-                        viewModel.changeTitle(R.id.set_marker_title.toString())
-//                    getString(R.string.latitude) ->
-//                        viewModel.changeLatitude(R.id.description_text.toString().toDouble())
-//                    getString(R.string.longitude) ->
-//                        viewModel.changeLongitude(R.id.description_text.toString().toDouble())
-//                }
+                viewModel.changeTitle(R.id.edit_marker.toString())
                 viewModel.save()
                 hideKeyboard(requireView())
-//                dismiss()
                 findNavController().navigateUp()
             }
         }
 
         binding.cancel.setOnClickListener {
             findNavController().navigateUp()
-
-//            val activity = activity ?: return@setOnClickListener
-//            val dialog = activity.let { activity ->
-//                AlertDialog.Builder(activity)
-//            }
-//
-//            dialog.setMessage(R.string.cancellation)
-//                .setPositiveButton(R.string.dialog_positive_button) { _, _ ->
-////                    dismiss()
-//                    hideKeyboard(requireView())
-//                    findNavController().navigateUp()
-//                }
-//                .setNegativeButton(R.string.dialog_negative_button) { _, _ ->
-//                    isCancelable
-//                }
-//                .create()
-//                .show()
         }
 
         return binding.root

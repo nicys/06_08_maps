@@ -3,7 +3,7 @@
     <string name="app_name">Maps</string>
     <string name="permission_unavailable">Отсутсвует разрешение</string>
     <string name="add_marker_title">Добавить маркер</string>
-    <string name="new_marker_title">Заголовок</string>
+    <string name="new_marker_title">Заголовок места</string>
     <string name="latitude">Широта</string>
     <string name="longitude">Долгота</string>
     <string name="cancel_button">ОТМЕНА</string>

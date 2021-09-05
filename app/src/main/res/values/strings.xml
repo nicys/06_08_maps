@@ -2,7 +2,7 @@
     <string name="app_name">Maps</string>
     <string name="permission_unavailable">Permission unavailable</string>
     <string name="add_marker_title">Add Marker</string>
-    <string name="new_marker_title">Title</string>
+    <string name="new_marker_title">Title of place</string>
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
     <string name="cancel_button" tools:ignore="ButtonCase">CANCEL</string>

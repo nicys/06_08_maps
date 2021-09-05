@@ -56,7 +56,7 @@ class MapsFragment : Fragment() {
         var Bundle.stringData: String? by StringArg
         var Bundle.markerData: Marker? by MarkerArg
         var Bundle.coordinatesData: DoubleArray? by CoordinatesArg
-//        var Bundle.editedData: ArrayList<String> by EditedArg
+//        var Bundle.editedData: ArrayList<String>? by EditedArg
 
     }
 
@@ -159,25 +159,11 @@ class MapsFragment : Fragment() {
 //                    requireContext(), R.string.add_marker, Toast.LENGTH_SHORT
 //                ).show()
                 viewModel.changeData(
-                    title = getString(R.string.want_to_visit),
+                    title = getString(R.string.new_marker_title),
                     latitude = marker.latitude,
                     longitude = marker.longitude
                 )
                 viewModel.save()
-//                saveFab.visibility = View.VISIBLE
-//                saveFab.setOnClickListener {
-//                    val dialog = AddMarkerFragment()
-//                    dialog.arguments = Bundle().apply {
-//                        markerData = Marker(
-//                            title = getString(R.string.want_to_visit),
-//                            latitude = marker.latitude,
-//                            longitude = marker.longitude
-//                        )
-//                    }
-//                    findNavController().navigate(
-//                        R.id.action_mapsFragment2_to_addMarkerFragment
-//                    )
-//                }
             }
 
             fabListMarkers.setOnClickListener {
