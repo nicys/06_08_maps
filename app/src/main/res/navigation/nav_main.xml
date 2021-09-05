@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mapsFragment2_to_addMarkerFragment"
             app:destination="@id/addMarkerFragment" />
+        <action
+            android:id="@+id/action_mapsFragment2_to_editedMarkerFragment"
+            app:destination="@id/editedMarkerFragment" />
     </fragment>
     <fragment
         android:id="@+id/markersListFragment"
