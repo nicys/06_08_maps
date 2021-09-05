@@ -36,9 +36,6 @@ import java.util.concurrent.ConcurrentHashMap
 
 
 class MapsFragment : Fragment() {
-    private lateinit var googleMap: GoogleMap
-
-    private val viewModel: MarkerViewModel by viewModels()
 
     @SuppressLint("MissingPermission")
     private val requestPermissionLauncher =
@@ -78,8 +75,7 @@ class MapsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        val viewModel: MarkerViewModel by viewModels()
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragmen
 
 
         lifecycle.coroutineScope.launchWhenCreated {
