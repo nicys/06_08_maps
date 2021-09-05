@@ -40,14 +40,6 @@ class MapsFragment : Fragment() {
 
     private val viewModel: MarkerViewModel by viewModels()
 
-
-    private val newSnippetLauncher = registerForActivityResult(SnippetResultContract()) { result ->
-        result ?: return@registerForActivityResult
-        viewModel.changeSnippet(result)
-        viewModel.addMarker()
-//        viewModel.changeSnippetString(result)
-    }
-
     @SuppressLint("MissingPermission")
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -177,8 +169,6 @@ class MapsFragment : Fragment() {
                         }
 
                         dialogBuilder.setNegativeButton(R.string.CHANGER) { dialog, which ->
-
-                            newSnippetLauncher.launch()
 
 
 //                            val bundle: Bundle? = arguments
