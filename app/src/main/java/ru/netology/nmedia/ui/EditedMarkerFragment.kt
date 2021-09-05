@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
@@ -17,12 +18,11 @@ import ru.netology.nmedia.ui.util.CoordinatesArg
 import ru.netology.nmedia.ui.util.MarkerArg
 import ru.netology.nmedia.ui.util.StringArg
 import ru.netology.nmedia.ui.viewmodel.MarkerViewModel
+import java.util.*
 
 class EditedMarkerFragment : Fragment() {
     companion object {
-        var Bundle.stringData: String? by StringArg
         var Bundle.markerData: Marker? by MarkerArg
-        var Bundle.coordinatesData: DoubleArray? by CoordinatesArg
     }
 
     private val viewModel: MarkerViewModel by viewModels(
@@ -42,7 +42,8 @@ class EditedMarkerFragment : Fragment() {
 
         arguments?.markerData?.let {
             binding.save.setOnClickListener {
-                viewModel.changeTitle(R.id.edit_marker.toString())
+                val editedTitle = binding.editMarker.text.toString().trim()
+                viewModel.changeTitle(editedTitle)
                 viewModel.save()
                 hideKeyboard(requireView())
                 findNavController().navigateUp()
@@ -55,10 +56,4 @@ class EditedMarkerFragment : Fragment() {
 
         return binding.root
     }
-
-//    override fun onStart() {
-//        super.onStart()
-//        val width = (resources.displayMetrics.widthPixels)
-//        dialog?.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
-//    }
 }

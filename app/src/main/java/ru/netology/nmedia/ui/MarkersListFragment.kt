@@ -22,7 +22,6 @@ import ru.netology.nmedia.ui.viewmodel.MarkerViewModel
 class MarkersListFragment : Fragment() {
 
     companion object {
-        var Bundle.stringData: String? by StringArg
         var Bundle.markerData: Marker? by MarkerArg
         var Bundle.coordinatesData: DoubleArray? by CoordinatesArg
     }
@@ -78,6 +77,4 @@ class MarkersListFragment : Fragment() {
 
         return binding.root
     }
-
-
 }
