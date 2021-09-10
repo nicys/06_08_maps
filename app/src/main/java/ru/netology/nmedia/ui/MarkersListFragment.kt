@@ -43,8 +43,6 @@ class MarkersListFragment : Fragment() {
                 findNavController().navigateUp()
             }
 
-
-
 //                findNavController().navigate(
 //                    R.id.action_markersListFragment_to_mapsFragment2,
 //                    Bundle().apply {

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -29,6 +30,7 @@ import com.google.maps.android.ktx.model.cameraPosition
 import com.google.maps.android.ktx.utils.collection.addMarker
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import ru.netology.nmedia.R
 import ru.netology.nmedia.ui.dto.Marker
 import ru.netology.nmedia.ui.util.CoordinatesArg
@@ -133,7 +135,6 @@ class MapsFragment : Fragment() {
             }
 
             val target = LatLng(55.751999, 37.617734)
-            val userTarget = viewModel.places.observe(viewLifecycleOwner, Observer { marker })
 //            val userTarget = arguments?.coordinatesData?.let { LatLng(it.first(), it.last()) }
             val markerManager = MarkerManager(googleMap)
             val collection: MarkerManager.Collection = markerManager.newCollection()
@@ -162,18 +163,20 @@ class MapsFragment : Fragment() {
                 )
             }
             viewModel.places.observe(viewLifecycleOwner) {
-                googleMap.awaitAnimateCamera(
-                    CameraUpdateFactory.newCameraPosition(
-                        cameraPosition {
-                            if (userTarget != null) {
-                                target(userTarget)
-                            } else {
-                                target(target)
+                lifecycleScope.launch {
+                    googleMap.awaitAnimateCamera(
+                        CameraUpdateFactory.newCameraPosition(
+                            cameraPosition {
+                                if (target != null) {
+                                    target(LatLng(it.latitude, it.longitude))
+                                } else {
+                                    target(target)
+                                }
+                                zoom(15F)
                             }
-                            zoom(15F)
-                        }
+                        )
                     )
-                )
+                }
             }
 
             viewModel.data.collect { data ->
