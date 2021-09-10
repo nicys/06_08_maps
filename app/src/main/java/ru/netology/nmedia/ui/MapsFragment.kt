@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.LocationServices
@@ -132,7 +133,8 @@ class MapsFragment : Fragment() {
             }
 
             val target = LatLng(55.751999, 37.617734)
-            val userTarget = arguments?.coordinatesData?.let { LatLng(it.first(), it.last()) }
+            val userTarget = viewModel.places.observe(viewLifecycleOwner, Observer { marker })
+//            val userTarget = arguments?.coordinatesData?.let { LatLng(it.first(), it.last()) }
             val markerManager = MarkerManager(googleMap)
             val collection: MarkerManager.Collection = markerManager.newCollection()
 

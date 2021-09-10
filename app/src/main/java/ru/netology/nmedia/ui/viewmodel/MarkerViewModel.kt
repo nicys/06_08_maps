@@ -3,6 +3,7 @@ package ru.netology.nmedia.ui.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -18,6 +19,12 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
     private val repository: MarkerRepository = MarkerRepositoryImpl(
         AppDb.getInstance(application).markerDao()
     )
+
+    val places = MutableLiveData<Marker>()
+
+    fun selected(marker: Marker) {
+        places.value = marker
+    }
 
     val data = repository.data
         .catch { e: Throwable ->

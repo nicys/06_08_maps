@@ -39,15 +39,21 @@ class MarkersListFragment : Fragment() {
 
         val adapter = MarkersAdapter(object : MarkerOnInteractionListener {
             override fun onShowMarker(marker: Marker) {
-                findNavController().navigate(
-                    R.id.action_markersListFragment_to_mapsFragment2,
-                    Bundle().apply {
-                        coordinatesData = doubleArrayOf(
-                            marker.latitude,
-                            marker.longitude
-                        )
-                    })
+                viewModel.selected(marker)
+                findNavController().navigateUp()
             }
+
+
+
+//                findNavController().navigate(
+//                    R.id.action_markersListFragment_to_mapsFragment2,
+//                    Bundle().apply {
+//                        coordinatesData = doubleArrayOf(
+//                            marker.latitude,
+//                            marker.longitude
+//                        )
+//                    })
+//            }
 
             override fun onRemove(marker: Marker) {
                 viewModel.removeById(marker.id)
