@@ -161,19 +161,20 @@ class MapsFragment : Fragment() {
                     R.id.action_mapsFragment2_to_markersListFragment
                 )
             }
-
-            googleMap.awaitAnimateCamera(
-                CameraUpdateFactory.newCameraPosition(
-                    cameraPosition {
-                        if (userTarget != null) {
-                            target(userTarget)
-                        } else {
-                            target(target)
+            viewModel.places.observe(viewLifecycleOwner) {
+                googleMap.awaitAnimateCamera(
+                    CameraUpdateFactory.newCameraPosition(
+                        cameraPosition {
+                            if (userTarget != null) {
+                                target(userTarget)
+                            } else {
+                                target(target)
+                            }
+                            zoom(15F)
                         }
-                        zoom(15F)
-                    }
+                    )
                 )
-            )
+            }
 
             viewModel.data.collect { data ->
                 try {
